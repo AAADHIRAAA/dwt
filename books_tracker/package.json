@@ -1,0 +1,16 @@
+{
+  "name": "books_tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "frontend": "cd client && npm run dev",
+    "backend": "cd backend && npm run start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
