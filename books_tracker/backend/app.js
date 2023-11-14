@@ -17,7 +17,7 @@ const rateLimit = require('express-rate-limit');
 
 
 const app = express();
-const PORT = 5000; // Set your desired port number
+const PORT = 5200; // Set your desired port number
 connectDB()
   .then(() => {
     // Set up your middleware, routes, and other server configurations here
@@ -73,7 +73,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/auth/google/callback",
+      callbackURL: "http://localhost:5200/auth/google/callback",
       passReqToCallback:true,
       scope:["profile","email"],
       

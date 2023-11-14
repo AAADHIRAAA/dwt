@@ -15,7 +15,7 @@ const Login = () => {
     <div className="container mx-auto flex flex-col items-center justify-center h-screen">
     <h1 style={headingStyle}>DIGITIZED WORK TRACKER</h1>
       <p>Please log in using Single Sign-On:</p>
-      <Link href="http://localhost:5000/auth/google"
+      <Link href="http://localhost:5200/auth/google"
         className="bg-blue-500 text-white p-2 rounded mt-4 hover:bg-blue-700">
           Log In with SSO
       </Link>

@@ -20,18 +20,18 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/v1/books/overall-statistics');
+        const response = await fetch('http://localhost:5200/api/v1/books/overall-statistics');
         const data = await response.json();
         setBooksScanned(data.booksScanned);
         setPagesScanned(data.pagesScanned);
         setAuthorCount(data.authorCount);
         setPublisherCount(data.publisherCount);
         const currentDate = new Date().toISOString().split('T')[0]; 
-        const res = await fetch('http://localhost:5000/api/v1/books/statistics-for-date/${currentDate}');
+        const res = await fetch('http://localhost:5200/api/v1/books/statistics-for-date/${currentDate}');
         const dataa = await res.json();
         setBooksScannedToday(dataa.booksScannedToday);
         setPagesScannedToday(dataa.pagesScannedToday);
-        const resp = await fetch('http://localhost:5000/api/v1/users/details');
+        const resp = await fetch('http://localhost:5200/api/v1/users/details');
         const dat = await resp.json();
         setLoggedInUsers(dat.loggedInUsers);
       } catch (error) {

@@ -14,7 +14,7 @@ const Header = () => {
           <Link href="/profile" className="mr-8">
               Profile
             </Link>
-            <Link href="http://localhost:5000/logout" className="mr-8">
+            <Link href="http://localhost:5200/logout" className="mr-8">
             Logout
           </Link>
           </>

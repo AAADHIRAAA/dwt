@@ -17,11 +17,11 @@ const Profile = () => {
     // Fetch data from your backend endpoint
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/v1/users/overall-user-statistics');
+        const response = await fetch('http://localhost:5200/api/v1/users/overall-user-statistics');
         const data = await response.json();
         setBooksScanned(data.booksScanned);
         setPagesScanned(data.pagesScanned);
-        const res = await fetch('http://localhost:5000/api/v1/users/user-today-statistics')
+        const res = await fetch('http://localhost:5200/api/v1/users/user-today-statistics')
         const dataa = await res.json();
         setBooksScannedToday(dataa.booksScannedToday);
         setPagesScannedToday(dataa.pagesScannedToday);
