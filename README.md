@@ -1,0 +1,11 @@
+# sok_agent_stats
+Scribe Agent Stat Manager
+
+#To run 
+npm run dev
+
+SESSION_SECRET='314049d8-9766-4a81-a909-b9b57f62151b'
+COOKIE_KEY='314049d8-9766-4a81-a909-b9b57f62151b'
+JWT_SECRET='eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY5OTM2Nzk2NywiaWF0IjoxNjk5MzY3OTY3fQ.YIHXvHC8h2o_0R5gArBqa9IEeCXg6LB3LVw7_6nAcTU'
+GOOGLE_CLIENT_ID='748937670568-frbnlsakh74gn6j12rhosirkriok3rmi.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET='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'
