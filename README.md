@@ -1,7 +1,13 @@
 # sok_agent_stats
 Scribe Agent Stat Manager
 
-#To run  npm run dev
+#To run  
+
+STEPS
+1) cd books_tracker --> npm install
+2) cd backend ---> npm install and cd client --> npm install
+3) Create a .env.example file and add the followings and mongodb connection string in backend folder
+4) books_tracker --> npm run dev
 
 SESSION_SECRET='314049d8-9766-4a81-a909-b9b57f62151b'
 
