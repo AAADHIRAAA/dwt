@@ -9,6 +9,8 @@ STEPS
 3) Create a .env.example file and add the followings and mongodb connection string in backend folder
 4) books_tracker --> npm run dev
 
+#.env.example file in backend
+
 SESSION_SECRET='314049d8-9766-4a81-a909-b9b57f62151b'
 
 COOKIE_KEY='314049d8-9766-4a81-a909-b9b57f62151b'
@@ -18,3 +20,9 @@ JWT_SECRET='eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJ
 GOOGLE_CLIENT_ID='748937670568-frbnlsakh74gn6j12rhosirkriok3rmi.apps.googleusercontent.com'
 
 GOOGLE_CLIENT_SECRET='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'
+
+#.env.local in client
+
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_c2hhcnAtYnVsbGZyb2ctNTAuY2xlcmsuYWNjb3VudHMuZGV2JA
+
+CLERK_SECRET_KEY=sk_test_s9UqwtICrgZVlBUhaRsByhm2AUzzfEN8Izga1aAuEZ
