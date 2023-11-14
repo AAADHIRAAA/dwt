@@ -11,8 +11,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const ejs = require('ejs');
 const path=require('path');
-// const {WorkOS} = require('@workos-inc/node');
-// const workos = new WorkOS(process.env.WORKOS_API_KEY);
+
 const { v4: uuidv4 } = require('uuid');
 const rateLimit = require('express-rate-limit');
 
@@ -29,15 +28,17 @@ connectDB()
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require( "./models/userModel");
 
-const MongoStore = require('connect-mongo')(session);
+// const MongoStore = require('connect-mongo')(session);
 
 /*--------------------app usage and set------------------ */
-// function isLoggedIn(req, res, next) {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   }
-//   res.json({message:"Something went Wrong"});
-// }
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    console.log("Authentication success");
+    return next();
+  }
+
+  res.json({message:"Something went Wrong"});
+}
 
 app.use(cors()); 
 
@@ -54,33 +55,17 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    // store: new MongoStore({ mongooseConnection: mongoose.connection }),
     cookie: {
-      maxAge: 8600000, 
-      secure: process.env.NODE_ENV === "production",
-      sameSite: true,
+    
+      secure: false,
+      
     },
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-passport.serializeUser((user, done) => {
-  
-  done(null, user._id); // Store user ID in session
-});
-
-passport.deserializeUser((id, done) => {
-  User.findById(id)
-    .then(user => {
-      done(null, user); // User found, pass it to the done callback
-    })
-    .catch(err => {
-      done(err, null); // Error occurred, pass it to the done callback
-    });
-
-});
 
 
 passport.use(
@@ -126,62 +111,48 @@ passport.use(
   )
 );
 
+passport.serializeUser((user, done) => {
+  
+  done(null, user._id); // Store user ID in session
+});
 
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+    .then(user => {
+      done(null, user); // User found, pass it to the done callback
+    })
+    .catch(err => {
+      done(err, null); // Error occurred, pass it to the done callback
+    });
+
+});
 
 app.get("/auth/google", passport.authenticate("google", ["profile","email"]));
 
 
-// app.get(
-//   "/auth/google/callback",
-//   passport.authenticate("google", {
-//     failureMessage: "Cannot login to Google, please try again later!",
-//     failureRedirect: "/failed",
-//     successRedirect: "/dashboard",
-//   }),
-
-// );
-
-// app.get(
-//   "/auth/google/callback",
-//   passport.authenticate("google"),(req,res)=>{
-//     console.log(req.user);
-   
-//     res.redirect("/dashboard");
-//     // res.send(req.user);
-//   }),
-
 app.get(
   "/auth/google/callback",
-  passport.authenticate("google"),
-  (req, res, next) => {
-    req.session.user = req.user;
-    
-    next();
-  },
-  (req, res) => {
-    console.log(req.user);
+  passport.authenticate("google", {
+    failureMessage: "Cannot login to Google, please try again later!",
+    failureRedirect: "/failed",
+    successRedirect: "/dashboard",
+  }),
 
-    res.redirect("/dashboard");
-    
-  }
 );
+
 
 app.get('/failed',  (req, res) => {
   res.redirect("http://localhost:3000/login");
  
 });
 
-// app.use((req, res, next) => {
-//   console.log('Authentication status:', req.isAuthenticated());
-//   next();
-// });
+
 
 // Protect a route that requires authentication
-app.get('/dashboard',  (req, res) => {
+app.get('/dashboard', isLoggedIn,  (req, res) => {
   console.log(req.user);
   res.redirect("http://localhost:3000/dashboard");
-  // res.json({ message: 'Authenticated', user: req.user });
-  // res.send("You are logged in " + req.user);
+ 
 });
 
 app.get("/logout",(req,res)=>{
@@ -198,16 +169,12 @@ app.get("/logout",(req,res)=>{
 });
 
 
-
 const limit = rateLimit({
   max: 200,
   windowMs: 60 * 60 * 60,
   message: 'Too many request with this IP Address..Try again in 1 hour'
 });
-// const api = require('./api');
 
-// app.use('/dwt', limit);
-// app.use('/api/v1',api);
 app.use('/api/v1/users',userRouter);
 app.use('/api/v1/books',bookRouter);
 
