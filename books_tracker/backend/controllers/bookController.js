@@ -15,7 +15,6 @@ async function addBook(req, res) {
             author_name,
             publisher_name,
             year,
-            total_pages,
           } = req.body;
           
           const newBook = new Book({
@@ -26,7 +25,6 @@ async function addBook(req, res) {
             author_name,
             publisher_name,
             year,
-            total_pages,
           });
           await newBook.save();
         
@@ -48,7 +46,7 @@ async function updateBook(req, res) {
         // Update the book details in the Books collection
         const updatedBook = await Book.findByIdAndUpdate(
              bookId,
-            { title, author_name, publisher_name, pages_scanned, total_pages, ID_url, year,updated_at:Date.now()},
+            { title, author_name, publisher_name, pages_scanned, ID_url, year,updated_at:Date.now()},
             { new: true }
         );
 

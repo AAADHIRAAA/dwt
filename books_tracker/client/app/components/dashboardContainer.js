@@ -1,22 +1,22 @@
 // components/Dashboard.js
-"use client"
+
 import React, { useState, useEffect } from "react";
 
-const DashboardContainer = ({ title, count,tcount }) => {
+const DashboardContainer = ({ title, count}) => {
 
-  const [currentCount, setCurrentCount] = useState(0);
+  // const [currentCount, setCurrentCount] = useState(0);
+ 
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     if (currentCount < count) {
+  //       setCurrentCount(currentCount + 1);
+  //     } else {
+  //       clearInterval(intervalId);
+  //     }
+  //   }, 100);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (currentCount < count) {
-        setCurrentCount(currentCount + 1);
-      } else {
-        clearInterval(intervalId);
-      }
-    }, 100);
-
-    return () => clearInterval(intervalId);
-  }, [currentCount]);
+  //   return () => clearInterval(intervalId);
+  // }, [currentCount]);
 
 
   return (
@@ -34,12 +34,8 @@ const DashboardContainer = ({ title, count,tcount }) => {
       color:'#ffffff'
     }}>
       <h3 style={{ fontWeight:'bolder',textAlign:'center',color:'white',marginBottom:'30px',marginTop:'10px',fontSize:'27px'}}>{title}</h3>
-      <p style={{textAlign:"center",fontSize:'20px'}}>Total:{currentCount}</p>
-      {/* {tcount !== undefined && (
-          <p style={{ textAlign: "center", fontSize: "15px" }}>
-            Today: {currentCount}
-          </p>
-        )} */}
+      <p style={{textAlign:"center",fontSize:'20px'}}>Total:{count}</p>
+
   </div>
     </>
   );

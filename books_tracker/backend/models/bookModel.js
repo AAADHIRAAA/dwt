@@ -8,7 +8,6 @@ const bookSchema = new mongoose.Schema({
     author_name: String,
     publisher_name: String,
     year:Number,
-    total_pages: Number ,
     scanned_at: { type: Date, default: Date.now  },
     updated_at: { type: Date, default:  Date.now },
     userId:String,

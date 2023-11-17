@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useState  } from 'react';
+import Image from 'next/image';
 const generateUniqueId = () => {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
@@ -20,7 +21,6 @@ const Spreadsheet = () => {
     col4: '',
     col5: '',
     col6: '',
-    col7: '',
     isEditable:true,
     isSubmitted:false,
   };
@@ -73,6 +73,24 @@ const Spreadsheet = () => {
   
   
   const handleSubmit = () => {
+    const isAnyFieldEmpty = rowData.some((row) =>
+    Object.values(row).some((value) => typeof value === 'string' && value.trim() === '')
+  );
+
+  if (isAnyFieldEmpty) {
+    alert('Error: All fields must be filled.');
+    return;
+  }
+
+  // Validate that "Year" and "Pages Scanned" are positive numbers
+  const isValidData = rowData.every((row) =>
+    typeof row.col2 === 'number' && row.col2 > 0 && typeof row.col6 === 'number' && row.col6 > 0
+  );
+
+  // if (!isValidData) {
+  //   alert('Error: "Year" and "Pages Scanned" must be positive numbers.');
+  //   return;
+  // }
     // Send rowData to the backend using an API call
     const newData =  rowData[rowData.length - 1];
     console.log(rowData.length);
@@ -86,7 +104,6 @@ const Spreadsheet = () => {
       col4: 'author_name',
       col5: 'publisher_name',
       col6: 'year',
-      col7: 'total_pages',
     };
      
     // Transform property names using the mapping object
@@ -111,7 +128,6 @@ const Spreadsheet = () => {
     .then((response) => response.json())
       .then((data) => {
         console.log('Data sent to the backend:', data);
-        alert('Data is submitted');
         if (data) {      
          newData.isEditable=false;
          newData.isSubmitted=true;
@@ -120,7 +136,7 @@ const Spreadsheet = () => {
           setSubmittedRows([...submittedRows, newData.id]);
           // Optionally, reset the form or show a success message to the user
           // Create a new empty row in the frontend table
-          setNewRow([{ _id: generateUniqueId(), col1: '', col2: '', col3: '', col4: '', col5: '', col6: '', col7: '',isEditable: true, isSubmitted: false  }]);
+          setNewRow([{ _id: generateUniqueId(), col1: '', col2: '', col3: '', col4: '', col5: '', col6: '', isEditable: true, isSubmitted: false  }]);
           // setRowData([...rowData, { ...initialRowData }]);
           setRowData([...rowData, newRow]);
          
@@ -138,7 +154,24 @@ const Spreadsheet = () => {
   };
 
   const handleSaveClick = () => {
-    
+    const isAnyFieldEmpty = rowData.some((row) =>
+    Object.values(row).some((value) => typeof value === 'string' && value.trim() === '')
+  );
+
+  if (isAnyFieldEmpty) {
+    alert('Error: All fields must be filled.');
+    return;
+  }
+
+  // Validate that "Year" and "Pages Scanned" are positive numbers
+  const isValidData = rowData.every((row) =>
+    typeof row.col2 === 'number' && row.col2 > 0 && typeof row.col6 === 'number' && row.col6 > 0
+  );
+
+  // if (!isValidData) {
+  //   alert('Error: "Year" and "Pages Scanned" must be positive numbers.');
+  //   return;
+  // }
     if (editingRowIndex!==null) {
       const editedData = rowData[editingRowIndex];
       // Add the 'id' property to the edited data object
@@ -151,8 +184,7 @@ const Spreadsheet = () => {
         col3: 'ID_url',
         col4: 'author_name',
         col5: 'publisher_name',
-        col6: 'year',
-        col7: 'total_pages',
+        col6: 'year'
       };
    
       // Transform property names using the mapping object
@@ -177,7 +209,6 @@ const Spreadsheet = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log('Data updated successfully:', data);
-          alert('Data is updated');
           // Update the rowData state with the updated data
           const updatedRowData = [...rowData];
           updatedRowData[editingRowIndex] = data.data; // Assuming the updated data is returned in the 'data' property
@@ -196,17 +227,17 @@ const Spreadsheet = () => {
     }
   };
 
-  const handleNewRowChange = (e, colName) => {
-    setNewRow((prevRow) => ({
-      ...prevRow,
-      [colName]: e.target.value,
-    }));
-  };
+  // const handleNewRowChange = (e, colName) => {
+  //   setNewRow((prevRow) => ({
+  //     ...prevRow,
+  //     [colName]: e.target.value,
+  //   }));
+  // };
   const handleInputChange = (e, rowIndex, colName) => {
 
     if (rowIndex >= 0 && rowIndex < rowData.length) {
-      // const currentRow = rowData[rowIndex];
-      console.log(rowData[rowIndex].isEditable);
+      const currentRow = rowData[rowIndex];
+      console.log(currentRow.isEditable);
       console.log(rowIndex);
       if ((editingRowIndex === rowIndex || rowIndex === 0)) {
         const updatedRowData = [...rowData];
@@ -233,6 +264,7 @@ const Spreadsheet = () => {
       <table style={{ width: '100%' }}>
         <thead>
           <tr>
+          <th>Serial No</th>
             <th>Book Name
             {/* <tr>
             <input
@@ -243,7 +275,7 @@ const Spreadsheet = () => {
               />
               </tr> */}
               </th>
-            <th>No of Pages Scanned
+            <th>Total Pages of the Book
             {/* <tr>
             <input
                 type="number"
@@ -253,7 +285,7 @@ const Spreadsheet = () => {
               />
               </tr> */}
             </th>
-            <th >Identification Number
+            <th >Archive Identifier
             {/* <tr>
             <input
                 type="text"
@@ -293,21 +325,12 @@ const Spreadsheet = () => {
               />
               </tr> */}
             </th>
-            <th >Total No of Pages
-            {/* <tr>
-            <input
-                type="number"
-                placeholder="Filter..."
-                value={filters.col7}
-                onChange={(e) => handleFilterChange(e, 'col7')}
-              />
-              </tr> */}
-            </th>
           </tr>
         </thead>
         <tbody>
         {rowData.map((row, rowIndex) => (
             <tr key={rowIndex}>
+              <td>{rowIndex + 1}</td>
               <td>
                 <input
                   type="text"
@@ -323,7 +346,7 @@ const Spreadsheet = () => {
                   type="number"
                   id={`col2-${rowIndex}`}
                   name={`col2-${rowIndex}`}
-                  value={rowData.col1}
+                  value={rowData.col2}
                   onChange={(e) => handleInputChange(e, rowIndex, 'col2')}
                   disabled={editingRowIndex !== null && editingRowIndex !== rowIndex}
                 />
@@ -369,20 +392,11 @@ const Spreadsheet = () => {
                 />
               </td>
               <td>
-                <input
-                  type="number"
-                  id={`col7-${rowIndex}`}
-                  name={`col7-${rowIndex}`}
-                  value={rowData.col7}
-                  onChange={(e) => handleInputChange(e, rowIndex, 'col7')}
-                  disabled={editingRowIndex !== null && editingRowIndex !== rowIndex}
-                />
-              </td>
-              <td>
                 {submittedRows.includes(rowData.id) && editingRowIndex === rowIndex ? (
-                  <button onClick={handleSaveClick}>Save</button>
+                  <button style={{ fontSize: '12px' }} onClick={handleSaveClick}>Save</button>
                 ) : submittedRows.includes(rowData.id) ?(
-                  <button onClick={() => handleEditClick(rowIndex)}>Edit</button>
+                  <button  onClick={() => handleEditClick(rowIndex)}>
+                    <Image src="/OIP.jpg" alt="Edit" width={20} height={20} /></button>
                 ):null}
               </td>
             </tr>
