@@ -12,9 +12,9 @@ const Header = () => {
           <Link href="/dashboard" className="mr-8">
               Admin
             </Link>
-          {/* <Link href="/profile" className="mr-8">
+          <Link href="/profile" className="mr-8">
               Profile
-            </Link> */}
+            </Link>
             {/* <Link href="http://localhost:5200/logout" className="mr-8">
             Logout
           </Link> */}

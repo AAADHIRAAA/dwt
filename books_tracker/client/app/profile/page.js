@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-
+import { UserProfile } from '@clerk/nextjs';
 const Profile = () => {
   const [booksScanned, setBooksScanned] = useState(0);
   const [booksScannedtoday, setBooksScannedToday] = useState(0);
@@ -30,40 +30,41 @@ const Profile = () => {
   }, []); 
   return (
     <>
+    
       <div style={{  
             display: 'flex',
             alignItems: 'center',
             }}>
-
+              <UserProfile />
         <div style={{ display:'flex',direction:'row' }}>
           <div style={{    
             textAlign: 'center',
             display: 'inline-block',
-            height: '100px',
-            width: '200px', // Set the width of the container
-            // Set the padding inside the container
+            height: '200px',
+            width: '300px', // Set the width of the container
+            marginLeft:'60px',
             borderRadius: '8px', // Add border-radius for rounded corners
             boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Add box shadow
             backgroundColor: '#1e90ff',
             color:'white',
             }}>
-            <h3 style={{color:'white',fontWeight:'bolder',marginBottom:'20px',marginTop:'10px'}}>Books Scanned</h3>
+            <h3 style={{color:'white',fontWeight:'bolder',marginBottom:'20px',marginTop:'40px'}}>Books Scanned</h3>
             <p><strong>Total Count:</strong> {booksScanned}</p>
             <p><strong>Today Count:</strong> {booksScannedtoday}</p>
           </div>
           <div style={{
               textAlign: 'center',
               display: 'inline-block',
-              marginLeft:'10px',
-              height: '100px',
-              width: '200px', // Set the width of the container
+              marginLeft:'40px',
+              height: '200px',
+              width: '300px', // Set the width of the container
            
               borderRadius: '8px', // Add border-radius for rounded corners
               boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Add box shadow
               backgroundColor: '#1e90ff',
               color:'white',
           }}>
-            <h3 style={{color:'white',fontWeight:'bolder',marginBottom:'20px',marginTop:'10px'}}>Pages Scanned</h3>
+            <h3 style={{color:'white',fontWeight:'bolder',marginBottom:'20px',marginTop:'40px'}}>Pages Scanned</h3>
             <p><strong>Total Count:</strong> {pagesScanned}</p>
             <p><strong>Today Count:</strong> {pagesScannedtoday}</p>
           </div>

@@ -8,7 +8,6 @@ async function addBook(req, res) {
         console.log(req.body);
        
           const {
-            _id,
             title,
             pages_scanned,
             ID_url,
@@ -18,7 +17,6 @@ async function addBook(req, res) {
           } = req.body;
           
           const newBook = new Book({
-            _id,
             title,
             pages_scanned,
             ID_url,

@@ -33,9 +33,9 @@ const Spreadsheet = () => {
   //   col6: '',
   //   col7: '',
   // });
-
+  
   const [editedDataId, setEditedDataId] = useState(null);
-  const [rowData, setRowData] = useState([initialRowData]);
+  const [rowData, setRowData] = useState([{...initialRowData}]);
   const [newRow,setNewRow] =useState([initialRowData])
   const [editingRowIndex, setEditingRowIndex] = useState(null);
   const [submittedRows, setSubmittedRows] = useState([]);
@@ -240,11 +240,14 @@ const Spreadsheet = () => {
       console.log(currentRow.isEditable);
       console.log(rowIndex);
       if ((editingRowIndex === rowIndex || rowIndex === 0)) {
-        const updatedRowData = [...rowData];
-        const updatedRow = { ...updatedRowData[rowIndex] };
-        updatedRow[colName] = e.target.value;
-        updatedRowData[rowIndex] = updatedRow;
-        setRowData(updatedRowData);
+        // const updatedRowData = [...rowData];
+        // const updatedRow = { ...updatedRowData[rowIndex] };
+        // updatedRow[colName] = e.target.value;
+        // updatedRowData[rowIndex] = updatedRow;
+        // setRowData(updatedRowData);
+        const newRowData = [...rowData];
+        newRowData[rowIndex][colName] = e.target.value;
+        setRowData(newRowData);
 
       }
     }
@@ -330,7 +333,9 @@ const Spreadsheet = () => {
         <tbody>
         {rowData.map((row, rowIndex) => (
             <tr key={rowIndex}>
+               
               <td>{rowIndex + 1}</td>
+              
               <td>
                 <input
                   type="text"
