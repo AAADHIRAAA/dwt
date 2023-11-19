@@ -1,4 +1,4 @@
-
+import Image from 'next/image';
 import Link from 'next/link';
 
 const headingStyle = {
@@ -20,9 +20,12 @@ const Login = () => {
           Log In with SSO
       </Link> */}
       <Link href="/machine">
-      <div  className="bg-blue-500 text-white p-2 rounded mt-4 hover:bg-blue-700">
-      Log In 
+      
+        <div  className="bg-blue-500 text-white p-2 rounded mt-4 hover:bg-blue-700">
+          Log In 
+        
       </div>
+      
       </Link>
     </div>
     

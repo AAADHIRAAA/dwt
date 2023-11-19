@@ -3,6 +3,7 @@ import React,{useEffect, useState} from 'react';
 import Link from 'next/link';
 import Header from "../components/header";
 import DashboardContainer from '../components/dashboardContainer'; 
+import GetAllUsers from '../components/user';
 
 const Dashboard = () => {
 
@@ -58,6 +59,9 @@ const Dashboard = () => {
       <DashboardContainer title="Author Count" count={authorCount} />
       <DashboardContainer title="Publisher Count" count={publisherCount} />
     
+    </div>
+    <div>
+      {/* <GetAllUsers/> */}
     </div>
     <div style={{ position: 'fixed', bottom: '100px', left: '120px' }}>
     <Link href="/spreadsheet">

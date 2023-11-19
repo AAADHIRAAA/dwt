@@ -1,6 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { UserProfile } from '@clerk/nextjs';
+import Header from '../components/header';
+
 const Profile = () => {
   const [booksScanned, setBooksScanned] = useState(0);
   const [booksScannedtoday, setBooksScannedToday] = useState(0);
@@ -30,7 +32,7 @@ const Profile = () => {
   }, []); 
   return (
     <>
-    
+     <Header/>
       <div style={{  
             display: 'flex',
             alignItems: 'center',

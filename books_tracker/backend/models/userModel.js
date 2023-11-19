@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+// const userSchema = new mongoose.Schema({
 
-  fullName: String,
-  email: String,
-  googleId:String,
-  picture:String,
-});
+//   fullName: String,
+//   email: String,
+//   googleId:String,
+//   picture:String,
+// });
 
-const User = mongoose.model('User', userSchema);
+// const User = mongoose.model('User', userSchema);
 
-module.exports =   User;
+// module.exports =   User;

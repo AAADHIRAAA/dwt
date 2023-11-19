@@ -8,9 +8,12 @@ const bookSchema = new mongoose.Schema({
     author_name: String,
     publisher_name: String,
     year:Number,
+    isbn:String,
+    language:String,
     scanned_at: { type: Date, default: Date.now  },
     updated_at: { type: Date, default:  Date.now },
     userId:String,
+    userName:String,
 });
 
 

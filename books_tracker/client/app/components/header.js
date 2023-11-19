@@ -10,15 +10,15 @@ const Header = () => {
         <nav className="ml-auto">
           <>
           <Link href="/dashboard" className="mr-8">
-              Admin
+              <h2 style={{fontSize:'15px',color:'white'}}>Admin</h2>
+            </Link>
+            <Link href="/form" className="mr-8">
+              <h2 style={{fontSize:'15px',color:'white'}}>Home</h2>
             </Link>
           <Link href="/profile" className="mr-8">
-              Profile
+          <h2 style={{fontSize:'15px',color:'white'}}>Profile</h2>
             </Link>
-            {/* <Link href="http://localhost:5200/logout" className="mr-8">
-            Logout
-          </Link> */}
-          <div>
+          <div className="mr-4">
             <UserButton afterSignOutUrl="/"/>
           </div>
           </>

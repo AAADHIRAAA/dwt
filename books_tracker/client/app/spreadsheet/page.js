@@ -2,7 +2,6 @@
 import React from 'react';
 import Spreadsheet from '../components/spreadsheet';
 import Header from "../components/header";
-import Profile from '../profile/page';
 import Image from 'next/image';
 
 export default function Home() {
