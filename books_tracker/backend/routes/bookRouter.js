@@ -5,8 +5,8 @@ const bookController = require('../controllers/bookController');
 router.post('/save-book-data', bookController.addBook);
 
 
-router.put('/update-book-data/:id',bookController.updateBook);
-// Route to get the count of logged-in users
+// router.put('/update-book-data/:id',bookController.updateBook);
+
 
 
 router.get('/overall-statistics', bookController.getOverallStatistics);

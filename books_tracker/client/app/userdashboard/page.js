@@ -8,7 +8,7 @@ const UserDashboard = () => {
   const [booksScannedToday, setBooksScannedToday] = useState(0);
   const [pagesScannedToday, setPagesScannedToday] = useState(0);
   const [loggedInUsersCount, setLoggedInUsersCount] = useState(0);
-
+  
     
 
     const fetchData = async () => {

@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import Spreadsheet from '../components/spreadsheet';
-import Header from "../components/header";
+import Header from "../components/Header";
 import Image from 'next/image';
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <div>
         <div >
-              {/* <Profile/> */}
+             
               <h1 className='custom-heading'>Digitized Work Tracker</h1>
           </div>
           <Spreadsheet />

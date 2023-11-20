@@ -3,22 +3,14 @@ import React,{useEffect, useState} from 'react';
 import Link from 'next/link';
 import Header from "../components/Header";
 import DashboardContainer from '../components/dashboardContainer'; 
-import GetAllUsers from '../components/user';
+
 
 const Dashboard = () => {
-
-  // const { booksScanned, pagesScanned, authorCount, publisherCount } = data;
-
   
   const [booksScanned, setBooksScanned] = useState(0);
   const [pagesScanned, setPagesScanned] = useState(0);
   const [authorCount, setAuthorCount] = useState(0);
   const [publisherCount, setPublisherCount] = useState(0);
-  // const [booksScannedToday, setBooksScannedToday] = useState(0);
-  // const [pagesScannedToday, setPagesScannedToday] = useState(0);
-
- 
-  
 
     const fetchData = async () => {
       try {
@@ -60,9 +52,7 @@ const Dashboard = () => {
       <DashboardContainer title="Publisher Count" count={publisherCount} />
     
     </div>
-    <div>
-      {/* <GetAllUsers/> */}
-    </div>
+   
     <div style={{ position: 'fixed', bottom: '100px', left: '120px' }}>
     <Link href="/spreadsheet">
           <button>Go to Spreadsheet</button>

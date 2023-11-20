@@ -1,25 +1,31 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { UserProfile } from '@clerk/nextjs';
-import Header from '../components/header';
+import { UserProfile ,useUser } from '@clerk/nextjs';
+import Header from '../components/Header';
 
 const Profile = () => {
   const [booksScanned, setBooksScanned] = useState(0);
   const [booksScannedtoday, setBooksScannedToday] = useState(0);
   const [pagesScanned, setPagesScanned] = useState(0);
   const [pagesScannedtoday, setPagesScannedToday] = useState(0);
-
-
+  const {  user } = useUser();
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    if (user) {
+      setUserId(user.id);
+      
+    }
+ }, [user]);
 
   useEffect(() => {
     // Fetch data from your backend endpoint
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5200/api/v1/users/overall-user-statistics');
+        const response = await fetch(`http://localhost:5200/api/v1/users/overall-user-statistics/${userId}`);
         const data = await response.json();
         setBooksScanned(data.booksScanned);
         setPagesScanned(data.pagesScanned);
-        const res = await fetch('http://localhost:5200/api/v1/users/user-today-statistics')
+        const res = await fetch(`http://localhost:5200/api/v1/users/user-today-statistics/${userId}`)
         const dataa = await res.json();
         setBooksScannedToday(dataa.booksScannedToday);
         setPagesScannedToday(dataa.pagesScannedToday);
@@ -29,7 +35,7 @@ const Profile = () => {
     };
 
     fetchData();
-  }, []); 
+  }, [userId]); 
   return (
     <>
      <Header/>

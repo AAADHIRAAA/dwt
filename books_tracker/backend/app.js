@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const passport = require("passport");
+
 const connectDB = require('./connection');
 
 const dotenv = require('dotenv');
@@ -25,20 +25,10 @@ connectDB()
     const userRouter = require('./routes/userRouter');
 
 
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const User = require( "./models/userModel");
 
-// const MongoStore = require('connect-mongo')(session);
 
 /*--------------------app usage and set------------------ */
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    console.log("Authentication success");
-    return next();
-  }
 
-  res.json({message:"Something went Wrong"});
-}
 
 app.use(cors()); 
 
@@ -49,124 +39,6 @@ app.use(bodyParser.json());
 // app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    // store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    cookie: {
-    
-      secure: false,
-      
-    },
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:5200/auth/google/callback",
-      passReqToCallback:true,
-      scope:["profile","email"],
-      
-    },
-    async function(_req, _accessToken, _refreshToken, profile, done){
-     
-      try {
-        let user = await User.findOne({ googleId: profile.id });
-    
-        if (user) {
-          // User already exists, return the user
-          return done(null, user);
-        }
-    
-        // User doesn't exist, create a new user
-        user = new User({
-          fullName: profile.displayName,
-          email: profile.emails[0].value, // Assuming the user has at least one email
-          googleId: profile.id,
-          picture: profile.photos[0].value, // Assuming the user has at least one photo
-        });
-        
-        await user.save();
-       
-        _req.login(user, function (err) {
-          if (err) {
-            return done(err, null);
-          }
-        return done(null, user);
-      });
-      } catch (error) {
-        return done(error, null);
-      }
-    }
-  )
-);
-
-passport.serializeUser((user, done) => {
-  
-  done(null, user._id); // Store user ID in session
-});
-
-passport.deserializeUser((id, done) => {
-  User.findById(id)
-    .then(user => {
-      done(null, user); // User found, pass it to the done callback
-    })
-    .catch(err => {
-      done(err, null); // Error occurred, pass it to the done callback
-    });
-
-});
-
-app.get("/auth/google", passport.authenticate("google", ["profile","email"]));
-
-
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureMessage: "Cannot login to Google, please try again later!",
-    failureRedirect: "/failed",
-    successRedirect: "/dashboard",
-  }),
-
-);
-
-
-app.get('/failed',  (req, res) => {
-  res.redirect("http://localhost:3000/login");
- 
-});
-
-
-
-// Protect a route that requires authentication
-app.get('/dashboard', isLoggedIn,  (req, res) => {
-  console.log(req.user);
-  res.redirect("http://localhost:3000/dashboard");
- 
-});
-
-app.get("/logout",(req,res)=>{
-  // Perform any additional cleanup or logging out logic if needed
-  req.logout(function(err) {
-    if (err) {
-      return next(err);
-    }
-    // Redirect to the home page or any other desired page after logout
-    // res.json({ message: 'Logged out' });
-    res.redirect('http://localhost:3000');
-  });
-    
-});
 
 
 const limit = rateLimit({

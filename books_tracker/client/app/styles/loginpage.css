@@ -35,40 +35,7 @@
   background-color: #45a049;
 }
 
-.profileContainer {
-	display: flex;
-	justify-content: space-around;
-	padding: 20px;
-}
-  
-.personalDetails {
-	width: 300px;
-	padding: 20px;
-	border: 1px solid #ccc;
-}
-  
-.personalDetails h2 {
-	margin-bottom: 10px;
-}
-  
-.statsContainer {
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-}
-  
-.statsBox {
-	width: 300px;
-	padding: 20px;
-	border: 1px solid rgb(143, 185, 208);
-}
-  
-.profileImg {
-	width: 100px;
-	height: 100px;
-	object-fit: cover;
-	margin-top: 10px;
-}
+
   
 
 
