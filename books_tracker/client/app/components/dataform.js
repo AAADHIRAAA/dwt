@@ -1,19 +1,46 @@
 // components/DataForm.js
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from 'next/navigation';
 
 const DataForm = () => {
+
+  const {  user } = useUser();
+  const [userId, setUserId] = useState(null);
+  const [userName, setUserName] = useState(null);   
+  useEffect(() => {
+    if (user) {
+      setUserId(user.id);
+      setUserName(user.fullName);
+    }
+ }, [user]);
+  const router = useRouter();
+  const [selectedScribe, setSelectedScribe] = useState(null);
+  const getScribeNumber = () => {
+    const storedScribe = localStorage.getItem('selectedScribe');
+    if (!storedScribe) {
+      router.push('/');
+    } else {
+      setSelectedScribe(storedScribe);
+    }
+ };
+
+ useEffect(() => {
+    getScribeNumber();
+ }, []);
   const [formData, setFormData] = useState({
     title: '',
     pages_scanned: '',
     ID_url: '',
     author_name: '',
     publisher_name: '',
-    year: ''
+    year: '',
+    isbn:'',
+    language:''
   });
 
-  const router = useRouter();
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,18 +52,36 @@ const DataForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
+
+       // Validate that "Year" and "Pages Scanned" are positive numbers
+     const isValid = validateForm()
+     if(isValid){
+      const data = {
+        title: formData.title,
+        pages_scanned: formData.pages_scanned,
+        ID_url: formData.ID_url,
+        author_name: formData.author_name,
+        publisher_name: formData.publisher_name,
+        year: formData.year,
+        isbn: formData.isbn,
+        language: formData.language,
+        scribe_number: selectedScribe,
+        userId: userId,
+        userName: userName,
+     };
+
       const response = await fetch('http://localhost:5200/api/v1/books/save-book-data', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
+    
 
       if (response.ok) {
-        // If the backend successfully processes the data, redirect to another page
-        // router.push('/anotherPage');
         setFormData({
           title: '',
           pages_scanned: '',
@@ -44,32 +89,54 @@ const DataForm = () => {
           author_name: '',
           publisher_name: '',
           year: '',
+          isbn:'',
+          language:''
         });
       } else {
         console.error('Failed to submit the form to the backend');
       }
+    }
     } catch (error) {
       console.error('Error submitting the form:', error);
     }
-
-   
   };
 
+  const validateForm = () => {
+    const { title, pages_scanned, ID_url, author_name, publisher_name, year, isbn, language } = formData;
+
+    if (!title || !pages_scanned || !ID_url || !author_name || !publisher_name || !year || !isbn || !language) {
+      alert('All fields are required');
+      return false;
+    }
+
+    if (pages_scanned <= 0) {
+      alert('Total pages scanned should be a positive number');
+      return false;
+    }
+
+    if (year <= 0) {
+      alert('Year of publication should be a positive number');
+      return false;
+    }
+
+    return true;
+ };
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
-      <div style={{ backgroundColor: '#fff5ee', padding: '50px', borderRadius: '8px', boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', width: '700px' ,height:'500px'}}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+      <div style={{ backgroundColor: '#fff5ee', padding: '50px', borderRadius: '8px', boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', width: '650px' ,height:'580px'}}>
         <form onSubmit={handleSubmit}>
           <label style={{ marginBottom: '25px', display: 'block' }}>
             Book Name:
-            <input type="text" name="title" value={formData.title} onChange={handleInputChange} required style={{ marginLeft: '100px', padding: '5px', backgroundColor: '#dcdcdc' }} />
+            <input type="text" name="title" value={formData.title} onChange={handleInputChange} required style={{ marginLeft: '100px', padding: '5px', backgroundColor: '#dcdcdc'}} />
           </label>
           <label style={{ marginBottom: '25px', display: 'block' }}>
             Total Pages Scanned:
-            <input type="number" name="pages_scanned" value={formData.pages_scanned} onChange={handleInputChange} required style={{ marginLeft: '30px', padding: '5px', backgroundColor: '#dcdcdc' }} />
+            <input type="number" name="pages_scanned" value={formData.pages_scanned} onChange={handleInputChange} required style={{ marginLeft: '40px', padding: '5px', backgroundColor: '#dcdcdc' }} />
           </label>
           <label style={{ marginBottom: '25px', display: 'block' }}>
             Archive Identifier:
-            <input type="text" name="ID_url" value={formData.ID_url} onChange={handleInputChange} required style={{ marginLeft: '60px', padding: '5px', backgroundColor: '#dcdcdc' }} />
+            <input type="text" name="ID_url" value={formData.ID_url} onChange={handleInputChange} required style={{ marginLeft: '64px', padding: '5px', backgroundColor: '#dcdcdc' }} />
           </label>
           <label style={{ marginBottom: '25px', display: 'block' }}>
             Author Name:
@@ -77,14 +144,22 @@ const DataForm = () => {
           </label>
           <label style={{ marginBottom: '25px', display: 'block' }}>
             Publisher Name:
-            <input type="text" name="publisher_name" value={formData.publisher_name} onChange={handleInputChange} required style={{ marginLeft: '72px', padding: '5px', backgroundColor: '#dcdcdc' }} />
+            <input type="text" name="publisher_name" value={formData.publisher_name} onChange={handleInputChange} required style={{ marginLeft: '74px', padding: '5px', backgroundColor: '#dcdcdc' }} />
           </label>
-          <label style={{ marginBottom: '15px', display: 'block' }}>
+          <label style={{ marginBottom: '25px', display: 'block' }}>
             Year of Publication:
-            <input type="number" name="year" value={formData.year} onChange={handleInputChange} required style={{ marginLeft: '51px', padding: '5px', backgroundColor: '#dcdcdc' }} />
+            <input type="number" name="year" value={formData.year} onChange={handleInputChange} required style={{ marginLeft: '55px', padding: '5px', backgroundColor: '#dcdcdc' }} />
+          </label>
+          <label style={{ marginBottom: '25px', display: 'block' }}>
+            ISBN:
+            <input type="string" name="isbn" value={formData.isbn} onChange={handleInputChange} required style={{ marginLeft: '152px', padding: '5px', backgroundColor: '#dcdcdc' }} />
+          </label>
+          <label style={{ marginBottom: '25px', display: 'block' }}>
+            Language:
+            <input type="text" name="language" value={formData.language} onChange={handleInputChange} required style={{ marginLeft: '117px', padding: '5px', backgroundColor: '#dcdcdc' }} />
           </label>
           <div>
-              <button style={{ backgroundColor: "#1e90ff", color: "white", float: 'right' }} type="submit">Submit</button>
+              <button style={{ backgroundColor: "#1e90ff", color: "white", float: 'right',marginBottom:'10px' }} type="submit">Submit</button>
             </div>
         </form>
       </div>

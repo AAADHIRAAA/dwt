@@ -1,7 +1,6 @@
 "use client"
 import React,{useEffect, useState} from 'react';
 import UserDashboardContainer from '../components/userdashboardContainer'; 
-import { Clerk } from '@clerk/clerk-react';
 
 
 const UserDashboard = () => {
@@ -9,22 +8,7 @@ const UserDashboard = () => {
   const [booksScannedToday, setBooksScannedToday] = useState(0);
   const [pagesScannedToday, setPagesScannedToday] = useState(0);
   const [loggedInUsersCount, setLoggedInUsersCount] = useState(0);
-  
-  
-       const getSessionCount = async () => {
-         try {
-          const { users } = useClerk();
-          const loggedInUsers = users.filter((user) => user.isSignedIn);
-          setLoggedInUsersCount(loggedInUsers.length);
-          //  const sessions = await Clerk.sessions.get();
-          //  setLoggedInUsersCount(sessions.length);
-           console.log(loggedInUsersCount);
-         } catch (error) {
-           console.error('Error fetching sessions:', error);
-         }
-       };
-   
-       
+
     
 
     const fetchData = async () => {
@@ -34,7 +18,6 @@ const UserDashboard = () => {
         console.log('Fetched data:', data); 
         setBooksScannedToday(data.booksScannedToday);
         setPagesScannedToday(data.pagesScannedToday);
-      
       } catch (error) {
         console.error('Error fetching statistics:', error);
       }
@@ -46,18 +29,10 @@ const UserDashboard = () => {
     
     // Fetch data every 10 minutes (adjust the interval as needed)
     const intervalId = setInterval(fetchData, 5 * 60 * 1000);
-    // Listen for changes in user state
-    // Clerk.addListener(() => {
-    //   getSessionCount();
-    // });
-    getSessionCount();
-    // Clerk.removeListener(() => {
-    //   getSessionCount();
-    // });
-    const interval = setInterval(getSessionCount, 5 * 60 * 1000);
+    
 
     // Clean up the interval when the component unmounts
-    return () => clearInterval(intervalId,interval);
+    return () => clearInterval(intervalId);
   }, []);
  
 

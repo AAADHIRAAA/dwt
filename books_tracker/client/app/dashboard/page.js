@@ -1,7 +1,7 @@
 "use client"
 import React,{useEffect, useState} from 'react';
 import Link from 'next/link';
-import Header from "../components/header";
+import Header from "../components/Header";
 import DashboardContainer from '../components/dashboardContainer'; 
 import GetAllUsers from '../components/user';
 

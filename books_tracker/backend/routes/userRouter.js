@@ -8,6 +8,7 @@ const userController = require('../controllers/userController');
 // router.get('/users/count', userController.getUsers);
 
 // router.get('/details', userController.getUserDetails);
-router.get('/overall-user-statistics',userController.getOverallUserStatistics);
-router.get('/user-today-statistics',userController.getDailyUserStatistics);
+router.get('/overall-user-statistics/:id',userController.getOverallUserStatistics);
+router.get('/user-today-statistics/:id',userController.getDailyUserStatistics);
+router.get('/view-books/:id',userController.viewBooks);
 module.exports = router;

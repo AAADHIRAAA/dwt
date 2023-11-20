@@ -1,12 +1,15 @@
 "use client"
-import React from 'react';
+import React,{useState} from 'react';
 import Spreadsheet from '../components/spreadsheet';
-import Header from "../components/header";
+import Header from "../components/Header";
 import Image from 'next/image';
 import UserDashboard from "../userdashboard/page";
 import DataForm from "../components/dataform";
-
 export default function Home() {
+
+const [scribeNumber, setScribeNumber] = useState('');
+
+
   const scrollToBottom = () => {
     window.scrollTo({
       top: document.body.scrollHeight,
@@ -29,7 +32,7 @@ export default function Home() {
           <h1 style={{fontSize:'35px', color:'blue',marginTop:'40px',textAlign:'center',fontWeight:'bolder',marginBottom:'50px'}}>Enter the Book Details</h1>
         </div>
         <div>
-         <DataForm/>
+         <DataForm scribeNumber={scribeNumber}/>
           </div>
         </div>
         <div>

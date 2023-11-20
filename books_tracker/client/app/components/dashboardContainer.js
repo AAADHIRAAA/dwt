@@ -4,20 +4,6 @@ import React, { useState, useEffect } from "react";
 
 const DashboardContainer = ({ title, count}) => {
 
-  // const [currentCount, setCurrentCount] = useState(0);
- 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     if (currentCount < count) {
-  //       setCurrentCount(currentCount + 1);
-  //     } else {
-  //       clearInterval(intervalId);
-  //     }
-  //   }, 100);
-
-  //   return () => clearInterval(intervalId);
-  // }, [currentCount]);
-
 
   return (
     <>

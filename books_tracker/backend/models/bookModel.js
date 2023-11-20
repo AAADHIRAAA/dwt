@@ -10,10 +10,12 @@ const bookSchema = new mongoose.Schema({
     year:Number,
     isbn:String,
     language:String,
-    scanned_at: { type: Date, default: Date.now  },
-    updated_at: { type: Date, default:  Date.now },
+    scribe_number:String,
     userId:String,
     userName:String,
+    scanned_at: { type: Date, default: Date.now  },
+    updated_at: { type: Date, default:  Date.now },
+    
 });
 
 

@@ -16,6 +16,9 @@ async function addBook(req, res) {
             year,
             isbn,
             language,
+            scribe_number,
+            userId,
+            userName,
           } = req.body;
           
           const newBook = new Book({
@@ -27,6 +30,9 @@ async function addBook(req, res) {
             year,
             isbn,
             language,
+            scribe_number,
+            userId,
+            userName,
           });
           await newBook.save();
         
@@ -121,27 +127,12 @@ const getOverallStatistics = async (req, res) => {
     
   };
 
-  const viewBooks = async (req, res) => {
-    try {
-     const userid=req.user.id;
-     
-  
-      res.json({
-        booksScanned,
-        pagesScanned: pagesScanned[0].totalPages,
-        authorCount,
-        publisherCount,
-      });
-    } catch (error) {
-      console.error('Error fetching overall statistics:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  };
+ 
 
 module.exports = {
     addBook,
     updateBook,
     getOverallStatistics,
     getStatisticsForDate,
-    viewBooks
+
 };

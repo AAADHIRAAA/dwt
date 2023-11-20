@@ -1,18 +1,26 @@
 // components/ScribeSelection.js
 "use client"
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 const ScribeSelection = () => {
   const [selectedScribe, setSelectedScribe] = useState('');
   const router = useRouter();
-
+  useEffect(() => {
+    // Retrieve the selected scribe number from localStorage on component mount
+    const storedScribe = localStorage.getItem('selectedScribe');
+    if (storedScribe) {
+      setSelectedScribe(storedScribe);
+    }
+  }, []);
   const handleSelectionChange = (event) => {
     setSelectedScribe(event.target.value);
   };
 
   const handleSubmit = () => {
     if (selectedScribe !== '') {
+      // Store the selected scribe number in localStorage
+      localStorage.setItem('selectedScribe', selectedScribe);
       // Redirect to another page with the selected scribe number
       router.push(`/form`);
     } else {

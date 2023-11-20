@@ -1,8 +1,9 @@
 // controllers/userController.js
 // const User = require('../models/userModel');
 const Book = require('../models/bookModel');
-
-
+const { clerk } = require('@clerk/clerk-js');
+// Get the authenticated user's ID
+// const userId = clerk.user?.id;
 
 // Function to fetch user details by ID
 // const getUserDetails = async (req, res) => {
@@ -32,10 +33,7 @@ const Book = require('../models/bookModel');
 
   // Function to get overall count of books and pages scanned by the user
 const getOverallUserStatistics = async (req, res) => {
-  if (!req.isAuthenticated()) {
-    return res.status(401).json({ error: 'Unauthorized' });
-}
-    const userId = req.user.googleId; // Assuming user ID is available in req.user
+  const userId=req.params.id;
   
     try {
       const booksScanned = await Book.countDocuments({ userId });
@@ -57,10 +55,7 @@ const getOverallUserStatistics = async (req, res) => {
   
   // Function to get daily count of books and pages scanned by the user
 const getDailyUserStatistics = async (req, res) => {
-  if (!req.isAuthenticated()) {
-    return res.status(401).json({ error: 'Unauthorized' });
-}
-    const userId = req.user.googleId; // Assuming user ID is available in req.user
+  const userId=req.params.id;
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set time to the beginning of the day
   
@@ -101,11 +96,47 @@ const getDailyUserStatistics = async (req, res) => {
   //     res.status(500).json({ error: 'Internal Server Error' });
   //   }
   // };
-
+  const viewBooks = async (req, res) => {
+    try {
+      const userId=req.params.id;
+      const books = await Book.find({ userId: userId }).exec();
+      console.log(books);
+      const processed_data = await Promise.all(
+        books.map(async (book) => {
+          // Copy book attributes to a new object
+          const processedBook = { ...book.toObject() };
+  
+          // Exclude specific fields
+          const excludedFields = ['userId', 'userName', 'scanned_at', 'updated_at','_id','__v'];
+          for (const field of excludedFields) {
+            delete processedBook[field];
+          }
+  
+          return processedBook;
+        })
+      );
+  
+      // Return the book details
+      return res.status(200).json(
+      
+          processed_data
+      
+      );
+    } catch (err) {
+      // Handle any errors that occur during the process
+      console.error(err);
+      return res.status(500).json({
+        status: 'error',
+        message: 'Internal server error',
+      });
+    }
+  };
+  
 
 module.exports = {
 
   getOverallUserStatistics,
   getDailyUserStatistics,
+  viewBooks
  
 };
