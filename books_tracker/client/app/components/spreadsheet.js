@@ -1,5 +1,5 @@
 import React, { useState, useEffect,useMemo } from 'react';
-import { useTable, useFetch } from 'react-table';
+import { useTable,useSortBy, usePagination} from 'react-table';
 import { useUser } from "@clerk/nextjs";
 
 
@@ -18,6 +18,10 @@ const Spreadsheet = () => {
 
  const columns = useMemo(
   () => [
+    {
+      Header: 'Serial Number',
+      accessor: (row, index) => index + 1, // Automatically generate serial number
+    },
      {
        Header: 'Book Name',
        accessor: 'title',
@@ -89,35 +93,72 @@ const Spreadsheet = () => {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
     prepareRow,
- } = useTable({ columns, data: rowData });
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    state:{pageIndex},
+    pageCount,
+    gotoPage,
+   
+ } = useTable(
+  { columns, 
+    data: rowData ,
+  },
+  useSortBy,
+  usePagination
+  );
+
  console.log(rowData);
+
+
+
  return (
     <div>
-      <table {...getTableProps()} style={{ width: '100%' }}>
+      <table {...getTableProps()} >
         <thead>
           {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+            <tr {...headerGroup.getHeaderGroupProps()}  >
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render('Header')}
+                  {
+                    column.isSorted && <span>{column.isSortedDesc?" ⬇️ ":" ⬆️ "}</span>
+                  }
+                </th>
               ))}
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
+        <tbody {...getTableBodyProps()} >
+          {page.map((row) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()} >
                 {row.cells.map((cell) => {
-                 return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+                 return <td {...cell.getCellProps()} >{cell.render('Cell')}</td>;
                 })}
               </tr>
             );
           })}
         </tbody>
       </table>
+      <div className='btn-container'>
+
+          <button disabled={pageIndex===0} onClick={()=>gotoPage(0)}>First</button>
+
+        <button disabled={!canPreviousPage} onClick={previousPage}>Prev</button>
+
+          <span>
+              {pageIndex+1} of {pageCount}
+          </span>
+
+        <button disabled={!canNextPage} onClick={nextPage}>Next</button>
+
+        <button disabled={pageIndex >= pageCount - 1} onClick={()=>gotoPage(pageCount -1)}>Last</button>
+        </div>
     </div>
  );
 };
