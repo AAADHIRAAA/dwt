@@ -42,7 +42,7 @@ const Dashboard = () => {
     <>
     <Header/>
     <div style={{ textAlign: 'center', marginTop: '30px' }}>
-    <h1 className='custom-heading'>Digitized Work Tracker</h1>
+    <h1  className='custom-heading' >ServantsOfKnowledge Scan Stats</h1>
     </div>
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       
@@ -53,11 +53,12 @@ const Dashboard = () => {
     
     </div>
    
-    <div style={{ position: 'fixed', bottom: '100px', left: '120px' }}>
+    {/* <div style={{ position: 'fixed', bottom: '100px', left: '120px' }}>
     <Link href="/spreadsheet">
           <button>Go to Spreadsheet</button>
         </Link>
-  </div>
+  </div> */}
+  
     </>
   );
 };

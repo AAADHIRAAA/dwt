@@ -7,14 +7,16 @@ const Spreadsheet = () => {
  const [rowData, setRowData] = useState([]);
  const {  user } = useUser();
  const [userId, setUserId] = useState(null);
+ const [isLoadingStats, setIsLoadingStats] = useState(true);
 
  useEffect(() => {
     
   if (user) {
     setUserId(user.id);
     console.log('User ID:', user.id);
+    fetchData();
   }
-}, [user]);
+}, [user,userId]);
 
  const columns = useMemo(
   () => [
@@ -64,6 +66,8 @@ const Spreadsheet = () => {
     // const data = await response.json();
     // setRowData(data);
     try {
+      setIsLoadingStats(true);
+      if(userId){
       const response = await fetch(`http://localhost:5200/api/v1/users/view-books/${userId}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -73,6 +77,12 @@ const Spreadsheet = () => {
       setRowData(data);
       console.log('Fetched Data:', data);
       console.log('Row Data:', rowData); // Log immediately after setRowData
+      setIsLoadingStats(false);
+      }
+      else{
+        <div>Loading...</div>
+      }
+      
     } catch (error) {
       console.error('Error fetching data:', error.message);
     }
@@ -80,14 +90,14 @@ const Spreadsheet = () => {
  };
 
 
- useEffect(() => {
+//  useEffect(() => {
     
-    fetchData();
-    const intervalId = setInterval(fetchData, 10 * 60 * 1000);
+   
+//     const intervalId = setInterval(fetchData, 10 * 60 * 1000);
 
-    // Clean up the interval when the component unmounts
-    return () => clearInterval(intervalId);
- }, [userId]);
+//     // Clean up the interval when the component unmounts
+//     return () => clearInterval(intervalId);
+//  }, [userId]);
 
  const {
     getTableProps,
@@ -145,16 +155,16 @@ const Spreadsheet = () => {
           })}
         </tbody>
       </table>
-      <div className='btn-container'>
-
+      <div className='btn-container' >
+     
           <button disabled={pageIndex===0} onClick={()=>gotoPage(0)}>First</button>
 
         <button disabled={!canPreviousPage} onClick={previousPage}>Prev</button>
-
+     
           <span>
-              {pageIndex+1} of {pageCount}
+              {pageIndex+1 }_of_{pageCount}
           </span>
-
+         
         <button disabled={!canNextPage} onClick={nextPage}>Next</button>
 
         <button disabled={pageIndex >= pageCount - 1} onClick={()=>gotoPage(pageCount -1)}>Last</button>
