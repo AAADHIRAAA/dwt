@@ -22,7 +22,7 @@ const ScribeSelection = () => {
       // Store the selected scribe number in localStorage
       localStorage.setItem('selectedScribe', selectedScribe);
       // Redirect to another page with the selected scribe number
-      router.push(`/form`);
+      router.push(`/workreport`);
     } else {
       // Handle case where no scribe is selected
       alert('Please choose a scribe number');
@@ -47,7 +47,7 @@ const ScribeSelection = () => {
         </select>
         <button
           onClick={handleSubmit}
-          style={{ backgroundColor: '#165eab', color: 'white', padding: '10px', borderRadius: '4px', cursor: 'pointer' }}
+          style={{ backgroundColor: '#1e90ff', color: 'white', padding: '10px', borderRadius: '4px', cursor: 'pointer' }}
         >
           Confirm
         </button>

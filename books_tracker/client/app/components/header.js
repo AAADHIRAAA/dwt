@@ -26,10 +26,17 @@ const Header = () => {
 
   return (
     <header>
-         
-        <div className="ml-16 mr-16 ">
-                <h2 style={{ fontSize: '15px', color: '#165eab' }}>#ServantsOfKnowledge</h2>
-              </div>
+         {user &&(
+             <Link href="/dashboard" className="ml-16 mr-16 ">
+             <h2 style={{ fontSize: '15px', color: '#165eab' }}>#ServantsOfKnowledge</h2>
+            </Link>
+         )}
+         {!user &&(
+            <div className="ml-16 mr-16 ">
+            <h2 style={{ fontSize: '15px', color: '#165eab' }}>#ServantsOfKnowledge</h2>
+            </div>
+         )}
+          
             
         <nav className="ml-auto">
           <>
@@ -59,12 +66,12 @@ const Header = () => {
                 )}
             </div>
          
-                <Link href="/form" className="mr-8">
+                <Link href="/workreport" className="mr-8">
                   <h2 style={{fontSize:'15px',color:'#165eab'}}>Home</h2>
                 </Link>
-                <Link href="/profile" className="mr-8">
+                {/* <Link href="/profile" className="mr-8">
                   <h2 style={{fontSize:'15px',color:'#165eab'}}>Profile</h2>
-                </Link>
+                </Link> */}
                 <div className="mr-8">
                   <UserButton afterSignOutUrl="/"/>
                 </div>

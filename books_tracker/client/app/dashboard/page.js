@@ -1,9 +1,10 @@
 "use client"
 import React,{useEffect, useState} from 'react';
-import Link from 'next/link';
+import Image from 'next/image';
 import Header from "../components/Header";
 import DashboardContainer from '../components/dashboardContainer'; 
-
+import LeaderBoard from '../components/leaderboard';
+import PrevDay from '../prevday/page';
 
 const Dashboard = () => {
   
@@ -14,13 +15,13 @@ const Dashboard = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:5200/api/v1/books/overall-statistics');
+        const response = await fetch('http://localhost:5200/api/v1/books/statistics-for-date');
         const data = await response.json();
         console.log('Fetched data:', data); 
-        setBooksScanned(data.booksScanned);
-        setPagesScanned(data.pagesScanned);
-        setAuthorCount(data.authorCount);
-        setPublisherCount(data.publisherCount);
+        setBooksScanned(data.booksScannedToday);
+        setPagesScanned(data.pagesScannedToday);
+        setAuthorCount(data.distinctAuthors);
+        setPublisherCount(data.distinctPublishers);
       } catch (error) {
         console.error('Error fetching statistics:', error);
       }
@@ -36,15 +37,20 @@ const Dashboard = () => {
     return () => clearInterval(intervalId);
   }, []);
  
-
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth', // Optional: Adds smooth scrolling behavior
+    });
+  };
   
   return (
     <>
     <Header/>
-    <div style={{ textAlign: 'center', marginTop: '30px' }}>
-    <h1  className='custom-heading' >ServantsOfKnowledge Scan Stats</h1>
+    <div style={{ textAlign: 'center', marginTop: '40px' }}>
+    <h1  className='custom-heading' >Digitization Stats</h1>
     </div>
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <div style={{ textAlign: 'center', marginTop: '10px' }}>
       
       <DashboardContainer title="Books Scanned" count={booksScanned} />
       <DashboardContainer title="Pages Scanned" count={pagesScanned} />
@@ -53,11 +59,18 @@ const Dashboard = () => {
     
     </div>
    
-    {/* <div style={{ position: 'fixed', bottom: '100px', left: '120px' }}>
-    <Link href="/spreadsheet">
-          <button>Go to Spreadsheet</button>
-        </Link>
-  </div> */}
+    <div style={{marginTop:'30px',marginBottom:'60px'}}>
+        <LeaderBoard/>
+    </div>
+    <h3 className='custom-heading'>Previous Day Stats</h3>
+    <div style={{marginLeft:'600px'}}>
+
+      <PrevDay/>
+    </div>
+    <button  onClick={scrollToBottom} style={{ position: 'fixed', bottom: '40px', right: '40px' }}>
+        <Image src="/scroll-down.png" alt="Scrolldown" width={20} height={20} />
+        </button>
+        
   
     </>
   );

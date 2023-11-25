@@ -123,116 +123,53 @@ const DataForm = () => {
  };
 
   return (
-    // <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-    //   <div style={{ backgroundColor: '#fff5ee', padding: '50px', borderRadius: '8px', boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', width: '650px' ,height:'580px'}}>
-    //     <form onSubmit={handleSubmit}>
-    //       <label style={{ marginBottom: '25px', display: 'block' }}>
-    //         Book Name:
-    //         <input type="text" name="title" value={formData.title} onChange={handleInputChange} required style={{ marginLeft: '100px', padding: '5px', backgroundColor: '#dcdcdc'}} />
-    //       </label>
-    //       <label style={{ marginBottom: '25px', display: 'block' }}>
-    //         Total Pages Scanned:
-    //         <input type="number" name="pages_scanned" value={formData.pages_scanned} onChange={handleInputChange} required style={{ marginLeft: '40px', padding: '5px', backgroundColor: '#dcdcdc' }} />
-    //       </label>
-    //       <label style={{ marginBottom: '25px', display: 'block' }}>
-    //         Archive Identifier:
-    //         <input type="text" name="ID_url" value={formData.ID_url} onChange={handleInputChange} required style={{ marginLeft: '64px', padding: '5px', backgroundColor: '#dcdcdc' }} />
-    //       </label>
-    //       <label style={{ marginBottom: '25px', display: 'block' }}>
-    //         Author Name:
-    //         <input type="text" name="author_name" value={formData.author_name} onChange={handleInputChange} required style={{ marginLeft: '90px', padding: '5px', backgroundColor: '#dcdcdc' }} />
-    //       </label>
-    //       <label style={{ marginBottom: '25px', display: 'block' }}>
-    //         Publisher Name:
-    //         <input type="text" name="publisher_name" value={formData.publisher_name} onChange={handleInputChange} required style={{ marginLeft: '74px', padding: '5px', backgroundColor: '#dcdcdc' }} />
-    //       </label>
-    //       <label style={{ marginBottom: '25px', display: 'block' }}>
-    //         Year of Publication:
-    //         <input type="number" name="year" value={formData.year} onChange={handleInputChange} required style={{ marginLeft: '55px', padding: '5px', backgroundColor: '#dcdcdc' }} />
-    //       </label>
-    //       <label style={{ marginBottom: '25px', display: 'block' }}>
-    //         ISBN:
-    //         <input type="string" name="isbn" value={formData.isbn} onChange={handleInputChange} required style={{ marginLeft: '152px', padding: '5px', backgroundColor: '#dcdcdc' }} />
-    //       </label>
-    //       <label style={{ marginBottom: '25px', display: 'block' }}>
-    //         Language:
-    //         <input type="text" name="language" value={formData.language} onChange={handleInputChange} required style={{ marginLeft: '117px', padding: '5px', backgroundColor: '#dcdcdc' }} />
-    //       </label>
-    //       <div>
-    //           <button style={{ backgroundColor: "#1e90ff", color: "white", float: 'right',marginBottom:'10px' }} type="submit">Submit</button>
-    //         </div>
-    //     </form>
-    //   </div>
-    //   <div style={{ position: 'fixed', bottom: '20px', left: '100px', display: 'flex', alignItems: 'center' }}>
-    //     <div style={{ marginRight: '20px' }}>
-    //         <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: 'blue' }}>Table View</h2>
-    //     </div>
-    //     <div>
-    //       <Link href="/spreadsheet">
-    //         <button style={{ backgroundColor: "#1e90ff", color: "white" }}>View</button>
-    //       </Link>
-    //     </div>
-    //   </div>
-    // </div>
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-      <div style={{ backgroundColor: '#fff5ee', padding: '50px', borderRadius: '8px', boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', width: '600px', height: '780px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginLeft:'130px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
-            <label>
-              Book Name:
-              <input type="text" name="title" value={formData.title} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
-            </label>
-            <label>
-              Total Pages:
-              <input type="number" name="pages_scanned" value={formData.pages_scanned} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
-            </label>
-            <label>
-              Archive Identifier:
-              <input type="text" name="ID_url" value={formData.ID_url} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
-            </label>
-          {/* </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}> */}
-            <label>
-              Author Name:
-              <input type="text" name="author_name" value={formData.author_name} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
-            </label>
-            <label>
-              Publisher Name:
-              <input type="text" name="publisher_name" value={formData.publisher_name} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
-            </label>
-            <label>
-              Year of Publication:
-              <input type="number" name="year" value={formData.year} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
-            </label>
-          {/* </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}> */}
-            <label>
-              ISBN:
-              <input type="string" name="isbn" value={formData.isbn} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
-            </label>
-            <label>
-              Language:
-              <input type="text" name="language" value={formData.language} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
-            </label>
-            <div style={{ marginTop: 'auto',marginLeft:'50px' }}>
-              <button style={{ backgroundColor: '#1e90ff', color: 'white', padding: '10px', width: '80%', boxSizing: 'border-box', borderRadius: '5px' }} type="submit">
-                Submit
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div style={{ position: 'fixed', bottom: '20px', left: '100px', display: 'flex', alignItems: 'center' }}>
-        <div style={{ marginRight: '20px' }}>
-          <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: 'blue' }}>Table View</h2>
+   
+
+
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '65vh' }}>
+  <div style={{ backgroundColor: '#fff5ee', padding: '30px', borderRadius: '8px', boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', width: '600px', height: '650px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+    <form onSubmit={handleSubmit}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '25px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '47px' }}>
+          <label>Book Name:</label>
+          <label>Total Pages:</label>
+          <label>Archive Identifier:</label>
+          <label>Author Name:</label>
+          <label>Publisher Name:</label>
+          <label>Year of Publication:</label>
+          <label>ISBN:</label>
+          <label>Language:</label>
         </div>
-        <div>
-          <Link href="/spreadsheet">
-            <button style={{ backgroundColor: '#1e90ff', color: 'white', padding: '10px', borderRadius: '5px' }}>View</button>
-          </Link>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
+          <input type="text" name="title" value={formData.title} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
+          <input type="number" name="pages_scanned" value={formData.pages_scanned} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
+          <input type="text" name="ID_url" value={formData.ID_url} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
+          <input type="text" name="author_name" value={formData.author_name} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
+          <input type="text" name="publisher_name" value={formData.publisher_name} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
+          <input type="number" name="year" value={formData.year} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
+          <input type="string" name="isbn" value={formData.isbn} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
+          <input type="text" name="language" value={formData.language} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
         </div>
       </div>
+      <div style={{ marginTop: '30px', marginLeft: '400px' }}>
+        <button style={{ backgroundColor: '#1e90ff', color: 'white', padding: '10px', width: '100%', boxSizing: 'border-box', borderRadius: '5px' }} type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  <div style={{ position: 'fixed', bottom: '20px', left: '100px', display: 'flex', alignItems: 'center' }}>
+    <div style={{ marginRight: '20px' }}>
+      <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: 'blue' }}>Table View</h2>
     </div>
+    <div>
+      <Link href="/spreadsheet">
+        <button style={{ backgroundColor: '#1e90ff', color: 'white', padding: '10px', borderRadius: '5px' }}>View</button>
+      </Link>
+    </div>
+  </div>
+</div>
+
   );
 };
 

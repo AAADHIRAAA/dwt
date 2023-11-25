@@ -20,7 +20,7 @@ const DashboardContainer = ({ title, count}) => {
       color:'#165eab'
     }}>
       <h3 style={{ fontWeight:'bolder',textAlign:'center',color:'#165eab',marginBottom:'30px',marginTop:'10px',fontSize:'27px'}}>{title}</h3>
-      <p style={{textAlign:"center",fontSize:'20px'}}>{count}</p>
+      <p style={{textAlign:"center",fontSize:'30px'}}>{count}</p>
 
   </div>
     </>

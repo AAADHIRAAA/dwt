@@ -19,17 +19,17 @@ const [scribeNumber, setScribeNumber] = useState('');
   return (
     <>
     <Header/>
-    <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-20">
+    
+      <main className="flex min-h-screen flex-col items-center justify-between p-15">
       <div>
-        <div className='border-b-2 pb-4 mb-4'>
+      
           <div >
            <UserDashboard />
-          </div>
+       
           {/* Book Details Section */}
         </div>
         <div>
-          <h1 style={{fontSize:'35px', color:'blue',marginTop:'40px',textAlign:'center',fontWeight:'bolder',marginBottom:'50px'}}>Enter the Book Details</h1>
+          <h1 style={{fontSize:'35px', color:'blue',marginTop:'25px',textAlign:'center',fontWeight:'bolder',marginBottom:'25px'}}>Enter the Book Details</h1>
         </div>
         <div>
          <DataForm scribeNumber={scribeNumber}/>
@@ -43,7 +43,7 @@ const [scribeNumber, setScribeNumber] = useState('');
         
       </main>
 
-    </div>
+    
     </>
   )
 }

@@ -2,6 +2,7 @@
 
 const Book = require('../models/bookModel');
 const { clerk } = require('@clerk/clerk-js');
+const { startOfDay, endOfDay } = require('date-fns');
 
 
   // Function to get overall count of books and pages scanned by the user
@@ -60,7 +61,10 @@ const getDailyUserStatistics = async (req, res) => {
   const viewBooks = async (req, res) => {
     try {
       const userId=req.params.id;
-      const books = await Book.find({ userId: userId }).exec();
+      const today = new Date();
+      const start = startOfDay(today);
+      const end = endOfDay(today);
+      const books = await Book.find({ userId: userId ,  scanned_at: { $gte: start, $lte: end },}).exec();
       console.log(books);
       const processed_data = await Promise.all(
         books.map(async (book) => {
