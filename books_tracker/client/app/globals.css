@@ -77,8 +77,6 @@ main {
 }
 
 header {
-	
-
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -102,9 +100,9 @@ main {
 }
 
 
-.start-btn,
-button {
-	background: #1e90ff;
+
+.button {
+	background: #165eab;
 	border: none;
 	border-radius: 0.125rem;
 	color: hsl(240, 27%, 92%);
@@ -177,7 +175,7 @@ table{
 
 th{
 	padding: 1rem;
-	background-color: rgb(70, 70, 246);
+	background-color:#165eab;
 	color: white;
 	text-align: left;
 }

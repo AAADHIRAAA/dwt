@@ -83,7 +83,7 @@ const Header = () => {
             </div>
          
                 <Link href="/workreport" className="mr-8">
-                  <h2 style={{fontSize:'15px',color:'#165eab'}}>Home</h2>
+                  <h2 style={{fontSize:'15px',color:'#165eab'}}>Dashboard</h2>
                 </Link>
               
                 <div className="mr-8">

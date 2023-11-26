@@ -1,14 +1,12 @@
 "use client"
 import React,{useEffect, useState} from 'react';
-import Image from 'next/image';
 import Header from "../components/Header";
 import Link from 'next/link';
 import DashboardContainer from '../components/dashboardContainer'; 
-import LeaderBoardMonth from '../components/leaderboard-month';
-import SpreadsheetMonth from '../components/spreadsheet-month';
+
 import { useUser} from '@clerk/nextjs';
 
-const AdminPage = () => {
+const MonthStats = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [booksScanned, setBooksScanned] = useState(0);
   const [pagesScanned, setPagesScanned] = useState(0);
@@ -30,13 +28,16 @@ const AdminPage = () => {
       }
     };
 
-     // Use the useEffect hook to fetch data when the component mounts
-  useEffect(() => {
-    fetchData();
-    if(user){
+    useEffect(()=>{
+      if(user){
         const userRole = user.publicMetadata.userRole;
         setIsAdmin(userRole === 'admin');
       }
+    },[user]);
+     // Use the useEffect hook to fetch data when the component mounts
+  useEffect(() => {
+    fetchData();
+   
     // Fetch data every minute (adjust the interval as needed)
     const intervalId = setInterval(fetchData,  60 * 1000);
 
@@ -44,12 +45,7 @@ const AdminPage = () => {
     return () => clearInterval(intervalId);
   }, []);
  
-  const scrollToBottom = () => {
-    window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: 'smooth', // Optional: Adds smooth scrolling behavior
-    });
-  };
+
   
   return (
     <>
@@ -74,22 +70,48 @@ const AdminPage = () => {
           <DashboardContainer title="Publisher Count" count={publisherCount} />
         
         </div>
-        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-        <h1  className='custom-heading' >Month Stats</h1>
+         <div style={{ marginLeft:'680px', marginTop: '40px',display:'flex', direction:'row' ,gap:'20px'}}>
+         <div style={{
+              textAlign: 'center',
+              display: 'inline-block',
+              marginLeft:'40px',
+              height: '80px',
+              width: '200px', // Set the width of the container
+              borderRadius: '8px', // Add border-radius for rounded corners
+              boxShadow: '8px 10px 16px rgba(0.2, 0.1, 0.1, 0.2)', // Add box shadow
+              backgroundColor:'#165eab',
+          }}>
+        <Link href="/monthstats">
+        <h1  style={{color:'white',marginTop:'20px',fontSize:'20px'}} >Month Stats</h1>
+        </Link>
         </div>
-        <div style={{marginTop:'30px',marginBottom:'60px'}}>
+        <div style={{
+              textAlign: 'center',
+              display: 'inline-block',
+              marginLeft:'40px',
+              height: '80px',
+              width: '200px', // Set the width of the container
+              borderRadius: '8px', // Add border-radius for rounded corners
+              backgroundColor:'#165eab',
+              boxShadow: '8px 10px 16px rgba(0.2, 0.1, 0.1, 0.2)', // Add box shadow
+             
+          }}>
+        <Link href="/digitizedstats">
+        <h1 style={{color:'white',marginTop:'20px',fontSize:'20px'}}>Digitized Books Stats</h1>
+        </Link>
+        </div>
+        </div>
+       {/* <div style={{marginTop:'30px',marginBottom:'60px'}}>
             <LeaderBoardMonth/>
         </div>
         <div style={{ textAlign: 'center', marginTop: '40px' }}>
-        <h1  className='custom-heading' >Digitized Books Stats</h1>
+        
         </div>
         <div style={{marginTop:'30px',marginBottom:'60px'}}>
             <SpreadsheetMonth/>
         </div>
+        */}
        
-        <button  onClick={scrollToBottom} style={{ position: 'fixed', bottom: '40px', right: '40px' }}>
-            <Image src="/scroll-down.png" alt="Scrolldown" width={20} height={20} />
-            </button>
         </> 
       
     )}
@@ -100,4 +122,4 @@ const AdminPage = () => {
 
 
 
-export default AdminPage;
+export default MonthStats;

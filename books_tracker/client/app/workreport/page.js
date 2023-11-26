@@ -26,15 +26,15 @@ export default function WorkReport() {
           {/* Book Details Section */}
         </div>
         <div>
-          <h1 style={{fontSize:'35px', color:'blue',marginTop:'25px',textAlign:'center',fontWeight:'bolder',marginBottom:'25px'}}>Enter the Book Details</h1>
+          <h1 style={{ fontSize:'20px',color:'#165eab',marginTop:'20px',textAlign:'center',fontWeight:'bolder',marginBottom:'20px'}}>Enter the Book Details</h1>
         </div>
         <div>
          <DataForm />
           </div>
         </div>
         <div>
-        <button  onClick={scrollToBottom} style={{ position: 'fixed', bottom: '40px', right: '40px' }}>
-        <Image src="/scroll-down.png" alt="Scrolldown" width={20} height={20} />
+        <button  onClick={scrollToBottom} style={{ backgroundColor:'#165eab',position: 'fixed', bottom: '40px', right: '40px' }}>
+        <Image src="/scroll-down.png" alt="Scrolldown" width={30} height={20} />
         </button>
         </div>
         

@@ -127,10 +127,10 @@ const DataForm = () => {
 
 
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '65vh' }}>
-  <div style={{ backgroundColor: '#fff5ee', padding: '30px', borderRadius: '8px', boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', width: '600px', height: '650px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+  <div style={{ backgroundColor: '#fff5ee', padding: '30px', borderRadius: '8px', boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', width: '580px', height: '630px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
     <form onSubmit={handleSubmit}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '25px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '47px' }}>
+        <div style={{ color:'#165eab',display: 'flex', flexDirection: 'column', gap: '47px' }}>
           <label>Book Name:</label>
           <label>Total Pages:</label>
           <label>Archive Identifier:</label>
@@ -151,8 +151,8 @@ const DataForm = () => {
           <input type="text" name="language" value={formData.language} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
         </div>
       </div>
-      <div style={{ marginTop: '30px', marginLeft: '400px' }}>
-        <button style={{ backgroundColor: '#1e90ff', color: 'white', padding: '10px', width: '100%', boxSizing: 'border-box', borderRadius: '5px' }} type="submit">
+      <div style={{ marginTop: '20px', marginLeft: '400px' }}>
+        <button style={{ backgroundColor: '#165eab', color: 'white', padding: '10px', width: '100%', boxSizing: 'border-box', borderRadius: '5px' }} type="submit">
           Submit
         </button>
       </div>
@@ -160,11 +160,11 @@ const DataForm = () => {
   </div>
   <div style={{ position: 'fixed', bottom: '20px', left: '100px', display: 'flex', alignItems: 'center' }}>
     <div style={{ marginRight: '20px' }}>
-      <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: 'blue' }}>Table View</h2>
+      <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#165eab' }}>Table View</h2>
     </div>
     <div>
       <Link href="/spreadsheet">
-        <button style={{ backgroundColor: '#1e90ff', color: 'white', padding: '10px', borderRadius: '5px' }}>View</button>
+        <button style={{ backgroundColor: '#165eab', color: 'white', padding: '10px', borderRadius: '5px' }}>View</button>
       </Link>
     </div>
   </div>
