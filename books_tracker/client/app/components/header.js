@@ -5,31 +5,45 @@ import {UserButton, useUser} from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 
 const Header = () => {
-  
+
+  const [isAdmin, setIsAdmin] = useState(false);
   const router = useRouter();
   const [selectedScribe, setSelectedScribe] = useState(null);
   const { user } = useUser();
-
+  
+  
   const getScribeNumber = () => {
     const storedScribe = localStorage.getItem('selectedScribe');
     if (!storedScribe) {
       router.push('/');
     } else {
       setSelectedScribe(storedScribe);
+   
     }
  };
 
+
+
  useEffect(() => {
     getScribeNumber();
+    if(user){
+      const userRole = user.publicMetadata.userRole;
+      setIsAdmin(userRole === 'admin');
+    }
+   
  }, []);
 
 
   return (
     <header>
          {user &&(
+          <>
              <Link href="/dashboard" className="ml-16 mr-16 ">
              <h2 style={{ fontSize: '15px', color: '#165eab' }}>#ServantsOfKnowledge</h2>
             </Link>
+       
+              
+            </>
          )}
          {!user &&(
             <div className="ml-16 mr-16 ">
@@ -53,11 +67,13 @@ const Header = () => {
             </>
           )}
          
-          {/* <Link href="/dashboard" className="mr-8">
-              <h2 style={{fontSize:'15px',color:'white'}}>Admin</h2>
-            </Link> */}
+       
             {user && (
               <>
+               {isAdmin && (
+                <Link href=" /admin" className="mr-8">
+                  <h2 style={{fontSize:'15px',color:'#165eab'}}>Admin Page</h2></Link>
+                )}
               <div  className="mr-8">
             {selectedScribe && (
               <h2 style={{ fontSize: '15px', color: '#165eab'}}>
@@ -69,9 +85,7 @@ const Header = () => {
                 <Link href="/workreport" className="mr-8">
                   <h2 style={{fontSize:'15px',color:'#165eab'}}>Home</h2>
                 </Link>
-                {/* <Link href="/profile" className="mr-8">
-                  <h2 style={{fontSize:'15px',color:'#165eab'}}>Profile</h2>
-                </Link> */}
+              
                 <div className="mr-8">
                   <UserButton afterSignOutUrl="/"/>
                 </div>

@@ -11,4 +11,5 @@ router.get('/overall-statistics', bookController.getOverallStatistics);
 router.get('/statistics-for-date', bookController.getStatisticsForDate);
 router.get('/statistics-prev-date',bookController.getStatisticsForPreviousDay);
 router.get('/leaderboard',bookController.getLeaderboardForCurrentDate);
+
 module.exports = router;

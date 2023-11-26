@@ -12,8 +12,6 @@ const session = require('express-session');
 const ejs = require('ejs');
 const path=require('path');
 
-const { v4: uuidv4 } = require('uuid');
-const rateLimit = require('express-rate-limit');
 
 
 const app = express();
@@ -23,7 +21,7 @@ connectDB()
     // Set up your middleware, routes, and other server configurations here
     const bookRouter = require('./routes/bookRouter');
     const userRouter = require('./routes/userRouter');
-
+    const adminRouter = require('./routes/adminRouter');
 
 
 
@@ -39,16 +37,9 @@ app.use(bodyParser.json());
 // app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
-
-
-const limit = rateLimit({
-  max: 200,
-  windowMs: 60 * 60 * 60,
-  message: 'Too many request with this IP Address..Try again in 1 hour'
-});
-
 app.use('/api/v1/users',userRouter);
 app.use('/api/v1/books',bookRouter);
+app.use('/api/v1/admin',adminRouter);
 
 
 /*---------------------------routing-------------------------- */
