@@ -1,7 +1,6 @@
 "use client"
 import React,{useEffect, useState} from 'react';
 import UserDashboardContainer from '../components/userdashboardContainer'; 
-import { useClerk } from "@clerk/nextjs";
 import { useUser } from '@clerk/nextjs';
 
 const UserDashboard = () => {
@@ -49,7 +48,6 @@ const UserDashboard = () => {
     <>
      
     <div style={{ textAlign: 'center' }}>
-      {/* <UserDashboardContainer title ="Logged In Users" count={sessionCount}/> */}
       <UserDashboardContainer title="Books Scanned" count={booksScannedToday} />
       <UserDashboardContainer title="Pages Scanned" count={pagesScannedToday} />
     </div>

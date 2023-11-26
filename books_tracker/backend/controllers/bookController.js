@@ -4,7 +4,7 @@ const AppError = require('../utils/AppError');
 
 async function addBook(req, res) {
     try {
-        const userid=req.params.id;
+        
         console.log(req.body);
        
           const {
@@ -46,29 +46,6 @@ async function addBook(req, res) {
     }
 }
 
-// async function updateBook(req, res) {
-//     try {
-//         const bookId = req.params.id;
-//         const { title, author_name,publisher_name, pages_scanned,  ID_url, year } = req.body;
-//         console.log(req.body);
-//         // Update the book details in the Books collection
-//         const updatedBook = await Book.findByIdAndUpdate(
-//              bookId,
-//             { title, author_name, publisher_name, pages_scanned, ID_url, year,updated_at:Date.now()},
-//             { new: true }
-//         );
-
-//         if (!updatedBook) {
-//             return res.status(404).json({ message: 'Book not found' });
-//         }
-
-//         res.status(200).json(
-//             { message: 'Book updated successfully'});
-//     } catch (error) {
-//         // console.error('Error updating book:', error);
-//         const e = new AppError("Error Updating book: "+error.message, 400);
-//         e.sendResponse(res)    }
-// }
 
 // Function to fetch overall statistics
 const getOverallStatistics = async (req, res) => {

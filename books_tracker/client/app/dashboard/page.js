@@ -17,7 +17,7 @@ const Dashboard = () => {
       try {
         const response = await fetch('http://localhost:5200/api/v1/books/statistics-for-date');
         const data = await response.json();
-        console.log('Fetched data:', data); 
+       
         setBooksScanned(data.booksScannedToday);
         setPagesScanned(data.pagesScannedToday);
         setAuthorCount(data.distinctAuthors);
@@ -40,7 +40,7 @@ const Dashboard = () => {
   const scrollToBottom = () => {
     window.scrollTo({
       top: document.body.scrollHeight,
-      behavior: 'smooth', // Optional: Adds smooth scrolling behavior
+      behavior: 'smooth', 
     });
   };
   

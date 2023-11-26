@@ -67,11 +67,6 @@ const LeaderBoard = () => {
  };
 
 
-//  useEffect(() => {
-    
-   
-
-//  }, [userId]);
 
  const {
     getTableProps,

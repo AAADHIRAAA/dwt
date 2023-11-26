@@ -1,7 +1,7 @@
 // controllers/userController.js
 
 const Book = require('../models/bookModel');
-const { clerk } = require('@clerk/clerk-js');
+
 const { startOfDay, endOfDay } = require('date-fns');
 
 

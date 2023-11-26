@@ -8,7 +8,7 @@ export default function Home() {
   const scrollToBottom = () => {
     window.scrollTo({
       top: document.body.scrollHeight,
-      behavior: 'smooth', // Optional: Adds smooth scrolling behavior
+      behavior: 'smooth', 
     });
   };
   return (
@@ -19,7 +19,7 @@ export default function Home() {
         <div>
         <div >
              
-              <h1 className='custom-heading'>Digitized Work Tracker</h1>
+              <h1 className='custom-heading'>Digitization Stats</h1>
           </div>
           <Spreadsheet />
       

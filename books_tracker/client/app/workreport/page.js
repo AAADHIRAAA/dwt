@@ -1,19 +1,16 @@
 "use client"
-import React,{useState} from 'react';
-import Spreadsheet from '../components/spreadsheet';
+import React from 'react';
 import Header from "../components/Header";
 import Image from 'next/image';
 import UserDashboard from "../userdashboard/page";
 import DataForm from "../components/dataform";
-export default function Home() {
 
-const [scribeNumber, setScribeNumber] = useState('');
-
+export default function WorkReport() {
 
   const scrollToBottom = () => {
     window.scrollTo({
       top: document.body.scrollHeight,
-      behavior: 'smooth', // Optional: Adds smooth scrolling behavior
+      behavior: 'smooth', 
     });
   };
   return (
@@ -32,7 +29,7 @@ const [scribeNumber, setScribeNumber] = useState('');
           <h1 style={{fontSize:'35px', color:'blue',marginTop:'25px',textAlign:'center',fontWeight:'bolder',marginBottom:'25px'}}>Enter the Book Details</h1>
         </div>
         <div>
-         <DataForm scribeNumber={scribeNumber}/>
+         <DataForm />
           </div>
         </div>
         <div>
@@ -42,8 +39,7 @@ const [scribeNumber, setScribeNumber] = useState('');
         </div>
         
       </main>
-
-    
+  
     </>
   )
 }

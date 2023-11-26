@@ -7,11 +7,14 @@ const PrevDay = () => {
   const [pagesScanned, setPagesScanned] = useState(0);
   const [isLoadingStats, setIsLoadingStats] = useState(true);
   useEffect(() => {
-    
     fetchData();
+        // Fetch data every day (adjust the interval as needed)
+      const intervalId = setInterval(fetchData, 24 * 60 * 60 * 1000);
+      // Clean up the interval when the component unmounts
+      return () => clearInterval(intervalId);
  }, []);
 
- // Fetch data from your backend endpoint
+ 
  const fetchData = async () => {
   try {
     setIsLoadingStats(true);
@@ -29,16 +32,6 @@ const PrevDay = () => {
   }
 };
 
-  // useEffect(() => {
-   
-
-  //     // // Fetch data every 10 minutes (adjust the interval as needed)
-  //     // const intervalId = setInterval(fetchData, 5 * 60 * 1000);
-  //     // // Clean up the interval when the component unmounts
-  //     // return () => clearInterval(intervalId);
-  // }, [userId]); 
-
-
   return (
     <>
       <div style={{  
@@ -55,7 +48,6 @@ const PrevDay = () => {
             marginLeft:'60px',
             borderRadius: '8px', // Add border-radius for rounded corners
             boxShadow: '8px 10px 16px rgba(0.2, 0.1, 0.1, 0.2)', // Add box shadow
-            // backgroundColor: '#1e90ff',
             color:'#165eab',
             }}>
             <h3 style={{color:'#165eab',fontWeight:'bolder',marginBottom:'20px',marginTop:'40px'}}>Books Scanned</h3>
@@ -71,10 +63,8 @@ const PrevDay = () => {
               marginLeft:'40px',
               height: '150px',
               width: '250px', // Set the width of the container
-           
               borderRadius: '8px', // Add border-radius for rounded corners
               boxShadow: '8px 10px 16px rgba(0.2, 0.1, 0.1, 0.2)', // Add box shadow
-              // backgroundColor: '#1e90ff',
               color:'#165eab',
           }}>
             <h3 style={{color:'#165eab',fontWeight:'bolder',marginBottom:'20px',marginTop:'40px'}}>Pages Scanned</h3>

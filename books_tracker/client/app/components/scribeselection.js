@@ -21,7 +21,7 @@ const ScribeSelection = () => {
     if (selectedScribe !== '') {
       // Store the selected scribe number in localStorage
       localStorage.setItem('selectedScribe', selectedScribe);
-      // Redirect to another page with the selected scribe number
+    
       router.push(`/workreport`);
     } else {
       // Handle case where no scribe is selected

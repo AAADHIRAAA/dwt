@@ -15,6 +15,9 @@ const Spreadsheet = () => {
     setUserId(user.id);
     console.log('User ID:', user.id);
     fetchData();
+    const intervalId = setInterval(fetchData, 20 * 60 * 1000);
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }
 }, [user,userId]);
 
@@ -62,9 +65,7 @@ const Spreadsheet = () => {
  );
 
  const fetchData = async () => {
-    // const response = await fetch(`http://localhost:5200/api/v1/users/view-books/${userId}`);
-    // const data = await response.json();
-    // setRowData(data);
+    
     try {
       setIsLoadingStats(true);
       if(userId){
@@ -75,8 +76,7 @@ const Spreadsheet = () => {
   
       const data = await response.json();
       setRowData(data);
-      console.log('Fetched Data:', data);
-      console.log('Row Data:', rowData); // Log immediately after setRowData
+   
       setIsLoadingStats(false);
       }
       else{
@@ -89,15 +89,6 @@ const Spreadsheet = () => {
 
  };
 
-
-//  useEffect(() => {
-    
-   
-//     const intervalId = setInterval(fetchData, 10 * 60 * 1000);
-
-//     // Clean up the interval when the component unmounts
-//     return () => clearInterval(intervalId);
-//  }, [userId]);
 
  const {
     getTableProps,

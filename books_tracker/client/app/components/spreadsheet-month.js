@@ -1,8 +1,6 @@
 import React, { useState, useEffect,useMemo } from 'react';
 import { useTable,useSortBy, usePagination} from 'react-table';
 
-
-
 const SpreadsheetMonth = () => {
  const [rowData, setRowData] = useState([]);
 
@@ -11,8 +9,7 @@ const SpreadsheetMonth = () => {
 
  useEffect(() => {
     fetchData();
-    const intervalId = setInterval(fetchData, 5 * 60 * 1000);
-
+    const intervalId = setInterval(fetchData, 15 * 60 * 1000);
     // Clean up the interval when the component unmounts
     return () => clearInterval(intervalId);
   
@@ -85,8 +82,7 @@ const SpreadsheetMonth = () => {
   
       const data = await response.json();
       setRowData(data);
-      console.log('Fetched Data:', data);
-      console.log('Row Data:', rowData); // Log immediately after setRowData
+      
       setIsLoadingStats(false);
       
      
