@@ -47,8 +47,8 @@ const Dashboard = () => {
   return (
     <>
     <Header/>
-    <div style={{ textAlign: 'center', marginTop: '40px' }}>
-    <h1  className='custom-heading' >Digitization Stats</h1>
+    <div className="text-center mt-8">
+    <h1  className='custom-heading'>Digitization Stats</h1>
     </div>
     <div style={{ textAlign: 'center', marginTop: '10px' }}>
       
@@ -59,7 +59,7 @@ const Dashboard = () => {
     
     </div>
    
-    <div style={{marginTop:'30px',marginBottom:'60px'}}>
+    <div className="mt-8 mb-12">
         <LeaderBoard/>
     </div>
     <h3 className='custom-heading'>Previous Day Stats</h3>
@@ -67,7 +67,7 @@ const Dashboard = () => {
 
       <PrevDay/>
     </div>
-    <button  onClick={scrollToBottom} style={{ position: 'fixed', bottom: '40px', right: '40px' }}>
+    <button  onClick={scrollToBottom} className="fixed bottom-12 right-12 bg-white p-2 rounded-full shadow-md">
         <Image src="/scroll-down.png" alt="Scrolldown" width={20} height={20} />
         </button>
         

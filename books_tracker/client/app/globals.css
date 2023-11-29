@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -14,8 +14,37 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
+
+/* Body styles */
+body {
+	@apply bg-white text-black; /* Replace with Tailwind classes */
+	margin: 0;
+	padding: 0;
+  }
+  
+  /* Example: Header */
+  header {
+	@apply flex justify-between items-center p-4 m-4 rounded-md shadow-md;
+	/* Use Tailwind utility classes for flexbox, spacing, shadows, etc. */
+  }
+  
+  /* Example: Custom Heading */
+  .custom-heading {
+	@apply text-3xl font-bold text-blue-600; /* Replace with Tailwind classes */
+	text-align: center;
+	padding-bottom: 2rem;
+	/* Add more styles as needed */
+  }
+  
+  /* Example: Footer */
+  footer {
+	@apply flex justify-center gap-4 bg-blue-500 text-white p-4; /* Tailwind classes */
+	/* Add more styles as needed */
+  }
+
+  
 .DashboardContainer p {
 	animation: countUp 3s ease-in-out infinite;
   }
@@ -29,14 +58,14 @@
 	}
   }
 
-body {
+/* body {
   background: #ffffff; /* Set light gray background color */
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-}
+  /* margin: 0; /* Remove default margin */
+  /* padding: 0;
+}   */
 
 
-* {
+/* * {
 	box-sizing: border-box;
 }
 
@@ -46,10 +75,10 @@ html {
 		Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	font-size: 16px;
 	line-height: 1.45;
-}
+} */
 
 
-:is(h1, h2, h3) {
+/* :is(h1, h2, h3) {
 	
 	line-height: 1.1;
 	margin: 0;
@@ -64,19 +93,19 @@ h2 {
 main {
 	background: hsl(220, 13%, 95%);
 	box-shadow: 0 0.125rem 0.375rem hsl(225deg 20% 30% / 0.125);
-}
-
+} */
+/* 
 .custom-heading {
   font-size: 36px;
   font-weight: bold;
   color: #165eab; /* Set your desired text color */
-  text-align: center;
+  /* text-align: center;
   padding-bottom: 50px;
- 
+  */
   /* Add more styles as needed */
-}
+/* } */
 
-header {
+/* header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -85,9 +114,9 @@ header {
 	margin: 10px 10px 10px;
 	border-radius: 4px;
 	box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-}
+}  */
 
-nav {
+/* nav {
 	display: flex;
 	gap: 1rem;
 }
@@ -95,13 +124,13 @@ nav {
 
 main {
   
-  box-shadow: none; /* Remove box shadow from main content */
+  box-shadow: none; 
   padding: 1rem;
-}
+} */
 
 
 
-.button {
+/* .button {
 	background: #165eab;
 	border: none;
 	border-radius: 0.125rem;
@@ -168,7 +197,7 @@ footer {
 table{
 	width: 100rem;
 	box-shadow: 0 0 10px rgba(0,0,0,0.204);
-	/* border-radius: 10px ; */
+	
 	border-collapse: collapse;
 	margin:auto;
 }
@@ -223,4 +252,111 @@ td {
 	cursor:not-allowed;
 	background-color: rgb(229,229,229);
 	color: rgb(0,0,0,0.269);
-}
+} */
+
+
+
+* {
+	@apply box-border;
+  }
+  
+  html {
+	@apply font-sans;
+	font-size: 16px;
+	line-height: 1.45;
+  }
+  
+  h1,
+  h2,
+  h3 {
+	@apply leading-normal m-0;
+  }
+  
+  h2 {
+	@apply mt-4;
+  }
+  
+  main {
+	@apply bg-gray-100 shadow-md;
+  }
+  
+  /* Specific Components with Tailwind */
+  
+  /* Header */
+  header {
+	@apply  justify-between items-center  rounded-md shadow-md;
+  }
+  
+  /* Buttons */
+  .button {
+	@apply bg-blue-600 border-none rounded-sm font-semibold py-2 px-4 text-white transition duration-150 ease-in-out;
+  }
+  
+  .button:hover {
+	@apply bg-green-600;
+  }
+  
+  /* App Actions */
+  .app-actions {
+	@apply flex gap-4 justify-between mt-4;
+  }
+  
+  /* Cards */
+  .card {
+	@apply bg-blue-400 shadow-sm flex flex-col p-4;
+  }
+  
+  .card p {
+	@apply my-2 mx-4;
+  }
+  
+  .card button {
+	@apply mt-auto;
+  }
+  
+  /* Footer */
+  footer {
+	@apply flex flex-wrap justify-center gap-8 p-4 bg-blue-500 text-white;
+  }
+  
+  /* Table */
+  table {
+	@apply mx-auto w-full sm:w-auto shadow-md border-collapse;
+  }
+  
+  th {
+	@apply p-4 bg-blue-600 text-white text-left;
+  }
+  
+  th:first-of-type {
+	@apply rounded-tl-2xl;
+  }
+  
+  th:last-of-type {
+	@apply rounded-tr-2xl;
+  }
+  
+  tr {
+	@apply bg-white;
+  }
+  
+  tr:hover {
+	@apply bg-gray-300;
+  }
+  
+  td {
+	@apply p-4;
+  }
+  
+  /* Button Container */
+  .btn-container {
+	@apply m-auto w-80 flex items-center justify-center gap-8 p-8;
+  }
+  
+  .btn-container button {
+	@apply border-none py-2 px-4 bg-blue-600 text-white rounded-md cursor-pointer;
+  }
+  
+  .btn-container button:disabled {
+	@apply cursor-not-allowed bg-gray-300 text-opacity-25;
+  }

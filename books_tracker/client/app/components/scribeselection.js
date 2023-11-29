@@ -47,7 +47,7 @@ const ScribeSelection = () => {
         </select>
         <button
           onClick={handleSubmit}
-          style={{ backgroundColor: '#1e90ff', color: 'white', padding: '10px', borderRadius: '4px', cursor: 'pointer' }}
+          style={{ backgroundColor: '#165eab', color: 'white', padding: '10px', borderRadius: '4px', cursor: 'pointer' }}
         >
           Confirm
         </button>
