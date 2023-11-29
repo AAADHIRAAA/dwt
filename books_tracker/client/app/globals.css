@@ -283,9 +283,9 @@ td {
   /* Specific Components with Tailwind */
   
   /* Header */
-  header {
+  /* header {
 	@apply  justify-between items-center  rounded-md shadow-md;
-  }
+  } */
   
   /* Buttons */
   .button {
