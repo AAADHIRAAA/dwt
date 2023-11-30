@@ -122,7 +122,7 @@ const Spreadsheet = () => {
    <h1 className='custom-heading'>Digitization Stats</h1>
    
     <div className=" overflow-x-auto">
-      <table {...getTableProps()} className="min-w-full divide-y divide-gray-200" style={{ minWidth: '60%' }}>
+      <table {...getTableProps()} className="divide-y divide-gray-200" >
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}  >
