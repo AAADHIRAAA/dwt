@@ -16,9 +16,9 @@ const DashboardContainer = ({ title, count}) => {
       padding: '20px', // Set the padding inside the container
       borderRadius: '8px', // Add border-radius for rounded corners
       boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', // Add box shadow
-      color:'#165eab'
+      color:'#075985'
     }}>
-      <h3 style={{ fontWeight:'bolder',textAlign:'center',color:'#165eab',marginBottom:'30px',marginTop:'10px',fontSize:'27px'}}>{title}</h3>
+      <h3 style={{ fontWeight:'bolder',textAlign:'center',color:'#075985',marginBottom:'30px',marginTop:'10px',fontSize:'27px'}}>{title}</h3>
       <p style={{textAlign:"center",fontSize:'30px'}}>{count}</p>
 
   </div>

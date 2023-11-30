@@ -15,17 +15,12 @@ export default function Home() {
     <>
     <Header/>
     <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div>
-        <div >
-             
-              <h1 className='custom-heading'>Digitization Stats</h1>
-          </div>
+      <main className="flex min-h-screen flex-col items-center  p-10">
+           
           <Spreadsheet />
-      
-        </div>
+       
         <div>
-        <button  onClick={scrollToBottom} style={{ position: 'fixed', bottom: '40px', right: '40px' }}>
+        <button  onClick={scrollToBottom} className="bg-sky-800 hover:bg-sky-600 text-white font-semibold py-1 px-1 rounded fixed bottom-10 right-2">
         <Image src="/scroll-down.png" alt="Scrolldown" width={20} height={20} />
         </button>
         </div>

@@ -29,7 +29,7 @@ const LeaderBoardMonth = () => {
  const columns = useMemo(
   () => [
     {
-      Header: 'Serial Number',
+      Header: 'S.No',
       accessor: (row, index) => index + 1, // Automatically generate serial number
     },
      {
@@ -115,10 +115,11 @@ const LeaderBoardMonth = () => {
       <>
     <Header/>
     <div style={{marginTop:'50px'}}>
-        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+      
           <h1  className='custom-heading' >Month Stats</h1>
-        </div>
-      <table {...getTableProps()} style={{width:'60rem'}}>
+       
+      <div className=" overflow-x-auto">
+      <table {...getTableProps()} className="min-w-full divide-y divide-gray-200" style={{ minWidth: '60%' }}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}  >
@@ -139,13 +140,14 @@ const LeaderBoardMonth = () => {
             return (
               <tr {...row.getRowProps()} >
                 {row.cells.map((cell) => {
-                 return <td {...cell.getCellProps()} >{cell.render('Cell')}</td>;
+                 return <td {...cell.getCellProps()} className="px-4 py-2 text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl">{cell.render('Cell')}</td>;
                 })}
               </tr>
             );
           })}
         </tbody>
       </table>
+      </div>
       <div className='btn-container' >
      
           <button disabled={pageIndex===0} onClick={()=>gotoPage(0)}>First</button>
@@ -160,7 +162,7 @@ const LeaderBoardMonth = () => {
 
           <button disabled={pageIndex >= pageCount - 1} onClick={()=>gotoPage(pageCount -1)}>Last</button>
       </div>
-  
+      
     </div>
   
   </>

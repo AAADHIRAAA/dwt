@@ -147,15 +147,15 @@ const SpreadsheetMonth = () => {
       <>
     <Header/>
     <div style={{marginTop:'50px'}}>
-    <div style={{ textAlign: 'center', marginTop: '40px' }}>
+    
         <h1  className='custom-heading' >Digitized Books Stats</h1>
-    </div>
-      <table {...getTableProps()} style={{width:'60rem'}}>
+      <div className=" overflow-x-auto">
+      <table {...getTableProps()} className=" divide-y divide-gray-200" style={{ minWidth: '60%' }}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}  >
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())} className="px-4 py-2 text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl" >
                   {column.render('Header')}
                   {
                     column.isSorted && <span>{column.isSortedDesc?" ⬇️ ":" ⬆️ "}</span>
@@ -171,13 +171,14 @@ const SpreadsheetMonth = () => {
             return (
               <tr {...row.getRowProps()} >
                 {row.cells.map((cell) => {
-                 return <td {...cell.getCellProps()} >{cell.render('Cell')}</td>;
+                 return <td {...cell.getCellProps()} className="px-4 py-2 text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl">{cell.render('Cell')}</td>;
                 })}
               </tr>
             );
           })}
         </tbody>
       </table>
+      </div>
       <div className='btn-container' >
      
           <button disabled={pageIndex===0} onClick={()=>gotoPage(0)}>First</button>

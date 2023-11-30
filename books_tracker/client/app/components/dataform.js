@@ -124,19 +124,20 @@ const DataForm = () => {
 
   return (
    
+<>
 
-
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '65vh' }}>
-  <div style={{ backgroundColor: '#fff5ee', padding: '30px', borderRadius: '8px', boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', width: '580px', height: '630px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-    <form onSubmit={handleSubmit}>
+  <div className="p-4">
+  <div className=" p-4 rounded-lg shadow-custom ">
+    <form onSubmit={handleSubmit} >
+    <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-sky-800 mb-4 text-center col-span-2">Enter the Book Details</h1>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '25px' }}>
-        <div style={{ color:'#165eab',display: 'flex', flexDirection: 'column', gap: '47px' }}>
+        <div style={{ color:'#0369a1',display: 'flex', flexDirection: 'column', gap: '47px' }}>
           <label>Book Name:</label>
           <label>Total Pages:</label>
           <label>Archive Identifier:</label>
           <label>Author Name:</label>
           <label>Publisher Name:</label>
-          <label>Year of Publication:</label>
+          <label>Published Year:</label>
           <label>ISBN:</label>
           <label>Language:</label>
         </div>
@@ -151,25 +152,25 @@ const DataForm = () => {
           <input type="text" name="language" value={formData.language} onChange={handleInputChange} required style={{ padding: '10px', backgroundColor: '#dcdcdc' }} />
         </div>
       </div>
-      <div style={{ marginTop: '20px', marginLeft: '400px' }}>
-        <button style={{ backgroundColor: '#165eab', color: 'white', padding: '10px', width: '100%', boxSizing: 'border-box', borderRadius: '5px' }} type="submit">
+      <div className="mt-4 ml-auto w-40">
+        <button className="button"  type="submit">
           Submit
         </button>
       </div>
     </form>
   </div>
-  <div style={{ position: 'fixed', bottom: '20px', left: '100px', display: 'flex', alignItems: 'center' }}>
-    <div style={{ marginRight: '20px' }}>
-      <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: '#165eab' }}>Table View</h2>
+  <div className="fixed bottom-4 left-4">
+    <div className="mr-4">
+      <h2 className="text-lg font-bold text-sky-800">Table View</h2>
     </div>
     <div>
       <Link href="/spreadsheet">
-        <button style={{ backgroundColor: '#165eab', color: 'white', padding: '10px', borderRadius: '5px' }}>View</button>
+        <button className="button">View</button>
       </Link>
     </div>
   </div>
 </div>
-
+</>
   );
 };
 

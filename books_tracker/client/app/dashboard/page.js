@@ -63,11 +63,12 @@ const Dashboard = () => {
         <LeaderBoard/>
     </div>
     <h3 className='custom-heading'>Previous Day Stats</h3>
-    <div style={{marginLeft:'600px'}}>
-
+    
+    <div style={{ textAlign: 'center', marginTop: '10px' }}>
+      
       <PrevDay/>
     </div>
-    <button  onClick={scrollToBottom} className="fixed bottom-12 right-12 bg-white p-2 rounded-full shadow-md">
+    <button  onClick={scrollToBottom} className="bg-sky-800 hover:bg-sky-600 text-white font-semibold py-1 px-1 rounded fixed bottom-10 right-2">
         <Image src="/scroll-down.png" alt="Scrolldown" width={20} height={20} />
         </button>
         

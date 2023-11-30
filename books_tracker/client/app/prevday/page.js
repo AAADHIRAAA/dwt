@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-
+import DashboardContainer from '../components/dashboardContainer'; 
 
 const PrevDay = () => {
   const [booksScanned, setBooksScanned] = useState(0);
@@ -33,49 +33,18 @@ const PrevDay = () => {
 };
 
   return (
-    <>
-      <div style={{  
-            display: 'flex',
-            alignItems: 'center',
-            }}>
-        <div style={{ display:'flex',direction:'row' }}>
-        {!isLoadingStats ? (
-          <div style={{    
-            textAlign: 'center',
-            display: 'inline-block',
-            height: '150px',
-            width: '250px', // Set the width of the container
-            marginLeft:'60px',
-            borderRadius: '8px', // Add border-radius for rounded corners
-            boxShadow: '8px 10px 16px rgba(0.2, 0.1, 0.1, 0.2)', // Add box shadow
-            color:'#165eab',
-            }}>
-            <h3 style={{color:'#165eab',fontWeight:'bolder',marginBottom:'20px',marginTop:'40px'}}>Books Scanned</h3>
-            <p style={{fontSize:'30px'}}>{booksScanned}</p>
-          </div>
-             ) : (
-              <div>Loading...</div>
-            )}
-             {!isLoadingStats ? (
-          <div style={{
-              textAlign: 'center',
-              display: 'inline-block',
-              marginLeft:'40px',
-              height: '150px',
-              width: '250px', // Set the width of the container
-              borderRadius: '8px', // Add border-radius for rounded corners
-              boxShadow: '8px 10px 16px rgba(0.2, 0.1, 0.1, 0.2)', // Add box shadow
-              color:'#165eab',
-          }}>
-            <h3 style={{color:'#165eab',fontWeight:'bolder',marginBottom:'20px',marginTop:'40px'}}>Pages Scanned</h3>
-            <p style={{fontSize:'30px'}}>{pagesScanned}</p>
-          </div>
-        ) : (
-          <div>Loading...</div>
-        )}
+   
+    <div>
+    {!isLoadingStats ? (
+        <div style={{ textAlign: 'center', marginTop: '10px' }}>
+        <DashboardContainer title="Books Scanned" count={booksScanned} />
+        <DashboardContainer title="Pages Scanned" count={pagesScanned} />
         </div>
-        </div>
-    </>
+       ) : (
+        <div>Loading...</div>
+      )}
+    </div>
+     
   );
 };
 

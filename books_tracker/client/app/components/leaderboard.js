@@ -19,7 +19,7 @@ const LeaderBoard = () => {
  const columns = useMemo(
   () => [
     {
-      Header: 'Serial Number',
+      Header: 'S.No',
       accessor: (row, index) => index + 1, // Automatically generate serial number
     },
      {
@@ -88,8 +88,8 @@ const LeaderBoard = () => {
 
 
  return (
-    <div>
-      <table {...getTableProps()} style={{width:'60rem'}}>
+    <div className="overflow-x-auto">
+      <table {...getTableProps()} className="min-w-full divide-y divide-gray-200" style={{ minWidth: '60%' }}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}  >
@@ -110,7 +110,7 @@ const LeaderBoard = () => {
             return (
               <tr {...row.getRowProps()} >
                 {row.cells.map((cell) => {
-                 return <td {...cell.getCellProps()} >{cell.render('Cell')}</td>;
+                 return <td {...cell.getCellProps()}  className="px-4 py-2 text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl">{cell.render('Cell')}</td>;
                 })}
               </tr>
             );

@@ -51,15 +51,15 @@ const MonthStats = () => {
     <>
     {!isAdmin &&(
         <>
-        <div style={{ textAlign: 'center', marginTop: '60px' }}><h1 style={{fontSize:'30px', color:'black'}}>This Page is restricted</h1></div>
-        <div  style={{ textAlign: 'center', marginTop: '60px' }}>
+        <div className="text-center mt-20"><h1 className="text-3xl text-black">This Page is restricted</h1></div>
+        <div  className="text-center mt-20">
         <Link href="/workreport">Return to Homepage</Link></div>
         </>
     )}
     {isAdmin &&(
         <>
         <Header/>
-        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+        <div className="text-center mt-10">
         <h1  className='custom-heading' >Admin Panel</h1>
         </div>
         <div style={{ textAlign: 'center', marginTop: '10px' }}>
@@ -70,7 +70,7 @@ const MonthStats = () => {
           <DashboardContainer title="Publisher Count" count={publisherCount} />
         
         </div>
-         <div style={{ marginLeft:'680px', marginTop: '40px',display:'flex', direction:'row' ,gap:'20px'}}>
+         <div className="flex justify-center mt-10 space-x-4">
          <div style={{
               textAlign: 'center',
               display: 'inline-block',
@@ -79,7 +79,8 @@ const MonthStats = () => {
               width: '200px', // Set the width of the container
               borderRadius: '8px', // Add border-radius for rounded corners
               boxShadow: '8px 10px 16px rgba(0.2, 0.1, 0.1, 0.2)', // Add box shadow
-              backgroundColor:'#165eab',
+              backgroundColor:'#075985',
+              marginBottom:'40px',
           }}>
         <Link href="/monthstats">
         <h1  style={{color:'white',marginTop:'20px',fontSize:'20px'}} >Month Stats</h1>
@@ -92,25 +93,16 @@ const MonthStats = () => {
               height: '80px',
               width: '200px', // Set the width of the container
               borderRadius: '8px', // Add border-radius for rounded corners
-              backgroundColor:'#165eab',
+              backgroundColor:'#075985',
               boxShadow: '8px 10px 16px rgba(0.2, 0.1, 0.1, 0.2)', // Add box shadow
-             
+             marginBottom:'40px',
           }}>
         <Link href="/digitizedstats">
         <h1 style={{color:'white',marginTop:'20px',fontSize:'20px'}}>Digitized Books Stats</h1>
         </Link>
         </div>
         </div>
-       {/* <div style={{marginTop:'30px',marginBottom:'60px'}}>
-            <LeaderBoardMonth/>
-        </div>
-        <div style={{ textAlign: 'center', marginTop: '40px' }}>
-        
-        </div>
-        <div style={{marginTop:'30px',marginBottom:'60px'}}>
-            <SpreadsheetMonth/>
-        </div>
-        */}
+    
        
         </> 
       

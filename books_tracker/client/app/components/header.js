@@ -30,14 +30,14 @@ const Header = () => {
       const userRole = user.publicMetadata.userRole;
       setIsAdmin(userRole === 'admin');
       const storedFirstLoginTimes = JSON.parse(localStorage.getItem('firstLoginTimes')) || {};
-      const currentTime = new Date().toLocaleString();
-
-      if (!storedFirstLoginTimes[user.id]) {
-        storedFirstLoginTimes[user.id] = currentTime;
+      const currentDate= new Date().toLocaleDateString();
+      if (!storedFirstLoginTimes[user.id] || storedFirstLoginTimes[user.id].date !== currentDate) {
+        const currentTime = new Date().toLocaleString();
+        storedFirstLoginTimes[user.id] = { date: currentDate, time: currentTime };
         localStorage.setItem('firstLoginTimes', JSON.stringify(storedFirstLoginTimes));
         setLoginTime(currentTime);
       } else {
-        setLoginTime(storedFirstLoginTimes[user.id]);
+        setLoginTime(storedFirstLoginTimes[user.id].time);
       }
     }
     
@@ -45,26 +45,30 @@ const Header = () => {
 
 
   return (
-    <header className="bg-gray-100 py-4 px-6 flex justify-between items-center">
+    <header className="bg-gray-100 py-1 px-2 flex flex-wrap justify-between items-center">
          {user &&(
           <>
           <nav className="flex items-center">
             <>
+            <div>
             <Link href="/dashboard" >
-             <h2 className="text-blue-600 text-lg font-semibold">#ServantsOfKnowledge</h2>
+             <h2 className=" mb-3 text-sky-800 text-lg sm:text-xl md:text-xl  xl:text-xl">#ServantsOfKnowledge</h2>
             </Link>
-           <div className="ml-8 text-blue-600">{loginTime && <p>Login Time: {loginTime}</p>}</div> 
+            </div>
+            
+             <div className="  ml-4 text-sky-800 text-lg ">{loginTime && 
+             <h2 className=" mb-3 text-sky-800 text-lg sm:text-xl md:text-xl  xl:text-xl">LoginTime: {loginTime}</h2>}
+             </div> 
             </>
 
           </nav>
-             
-              
+                 
             </>
          )}
          {!user &&(
-            <div className="ml-16 mr-16 ">
-            <h2 className="text-blue-600 text-lg font-semibold">#ServantsOfKnowledge</h2>
-            </div>
+            // <div className="ml-16 mr-16 ">
+            <h2 className="mb-3 text-sky-800 text-lg sm:text-xl md:text-xl  xl:text-xl">#ServantsOfKnowledge</h2>
+            // </div>
          )}
           
             
@@ -73,11 +77,11 @@ const Header = () => {
           {!user && (
             <>
               <Link href="/machine" className="mr-4">
-                <h2 className="text-blue-600">
+                <h2 className="mb-3 text-sky-800 text-lg">
                  Login
                 </h2>
               </Link>
-              <div className="mr-4">
+              <div className="mr-2">
                 <UserButton afterSignOutUrl="/"/>
               </div>
             </>
@@ -88,18 +92,18 @@ const Header = () => {
               <>
                {isAdmin && (
                 <Link href=" /admin" className="mr-4">
-                  <h2 className="text-blue-600">Admin Page</h2></Link>
+                  <h2 className="mb-3 text-sky-800 text-lg sm:text-xl md:text-xl  xl:text-xl">Admin Page</h2></Link>
                 )}
               <div  className="mr-4">
             {selectedScribe && (
-              <h2 className="text-blue-600">
+              <h2 className="mb-3 text-sky-800 text-lg sm:text-xl md:text-xl  xl:text-xl">
                 {selectedScribe}
               </h2>
                 )}
-            </div>
+              </div>
          
-                <Link href="/workreport" className="mr-4">
-                  <h2 className="text-blue-600">Dashboard</h2>
+                <Link href="/workreport" className="mr-4 ml-1">
+                  <h2 className="mb-3 text-sky-800 text-lg sm:text-xl md:text-xl  xl:text-xl">Dashboard</h2>
                 </Link>
               
                 <div className="mr-4">
