@@ -45,34 +45,35 @@ const Header = () => {
 
 
   return (
-    <header className="bg-gray-100 py-1 px-2 flex flex-wrap justify-between items-center">
+    <header className="bg-gray-100 py-1 px-2 flex flex-col sm:flex-row justify-between items-center">
          {user &&(
           <>
-          <nav className="flex items-center">
-            <>
-            <div>
+         
+            <div className="text-center sm:text-left">
             <Link href="/dashboard" >
-             <h2 className=" mb-3 text-sky-800 text-lg sm:text-xl md:text-xl  xl:text-xl">#ServantsOfKnowledge</h2>
+             <h2 className=" mb-3 mr-3 text-sky-800 text-lg sm:text-xl md:text-xl font-semibold xl:text-xl">#ServantsOfKnowledge</h2>
             </Link>
-            </div>
+          
             
-             <div className="  ml-4 text-sky-800 text-lg ">{loginTime && 
+             {loginTime && 
              <h2 className=" mb-3 text-sky-800 text-lg sm:text-xl md:text-xl  xl:text-xl">LoginTime: {loginTime}</h2>}
-             </div> 
-            </>
-
-          </nav>
+             </div>
+         
                  
             </>
          )}
          {!user &&(
-            // <div className="ml-16 mr-16 ">
-            <h2 className="mb-3 text-sky-800 text-lg sm:text-xl md:text-xl  xl:text-xl">#ServantsOfKnowledge</h2>
-            // </div>
+          <nav className="flex items-center justify-between ">
+           
+            <h2 className="mb-3 mr-4 text-sky-800 text-lg sm:text-xl md:text-xl  xl:text-xl">#ServantsOfKnowledge</h2>
+         
+          </nav>
+           
          )}
+        
           
-            
-        <nav className="flex items-center">
+          
+        <nav className="flex items-center justify-between sm:justify-start w-full sm:w-auto">
           <>
           {!user && (
             <>

@@ -121,10 +121,10 @@ const LeaderBoardMonth = () => {
       <div className=" overflow-x-auto">
       <table {...getTableProps()} className="min-w-full divide-y divide-gray-200" style={{ minWidth: '60%' }}>
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}  >
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())} >
+          {headerGroups.map((headerGroup,index) => (
+            <tr key={index} {...headerGroup.getHeaderGroupProps()}  >
+              {headerGroup.headers.map((column,index) => (
+                <th key={index} {...column.getHeaderProps(column.getSortByToggleProps())} >
                   {column.render('Header')}
                   {
                     column.isSorted && <span>{column.isSortedDesc?" ⬇️ ":" ⬆️ "}</span>
@@ -135,12 +135,12 @@ const LeaderBoardMonth = () => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()} >
-          {page.map((row) => {
+          {page.map((row,index) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()} >
-                {row.cells.map((cell) => {
-                 return <td {...cell.getCellProps()} className="px-4 py-2 text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl">{cell.render('Cell')}</td>;
+              <tr key={index} {...row.getRowProps()} >
+                {row.cells.map((cell,index) => {
+                 return <td key={index} {...cell.getCellProps()} className="px-4 py-2 text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl">{cell.render('Cell')}</td>;
                 })}
               </tr>
             );

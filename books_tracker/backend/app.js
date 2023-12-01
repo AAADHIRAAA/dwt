@@ -41,7 +41,9 @@ app.use('/api/v1/users',userRouter);
 app.use('/api/v1/books',bookRouter);
 app.use('/api/v1/admin',adminRouter);
 
-
+app.get('/', (req, res) => {
+  res.send('App is running on port 5200..');
+});
 /*---------------------------routing-------------------------- */
 
 
