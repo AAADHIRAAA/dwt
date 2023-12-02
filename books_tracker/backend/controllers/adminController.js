@@ -74,6 +74,7 @@ const getStatisticsForCurrentMonth = async (req, res) => {
           $group: {
             _id: {
               scribeNumber: '$scribe_number',
+              username: "$userName",
             },
             totalBooks: { $sum: 1 },
             totalPages: { $sum: '$pages_scanned' },

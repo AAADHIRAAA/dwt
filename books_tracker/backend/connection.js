@@ -6,7 +6,9 @@ dotenv.config({ path: './.env.example' });
 const connectDB = async () => {
   try {
     const atlasConnectionString = process.env.ATLAS_STRING;
-    await mongoose.connect(atlasConnectionString);
+    await mongoose.connect(atlasConnectionString,{
+      
+    });
     console.log('Connected to MongoDB Atlas');
   } catch (error) {
     console.error('MongoDB Connection Error:', error);
