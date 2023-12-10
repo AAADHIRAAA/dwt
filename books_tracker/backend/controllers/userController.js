@@ -1,11 +1,73 @@
 // controllers/userController.js
 
 const Book = require('../models/bookModel');
-
 const { startOfDay, endOfDay } = require('date-fns');
+const Logs = require('../models/logModel'); 
+const AppError = require('../utils/AppError');
+
+const handleLogin = async(req,res) =>{
+  try{
+  
+    const {
+        userId,
+        userName,
+        scannerNumber,
+        firstLoginTime,
+        date,
+    }= req.body;
+  console.log(req.body);
+  
+    const existingLog = await Logs.findOne({ userId:userId, date: date });
+    if (!existingLog) {
+      await Logs.create({
+        userId,
+        userName,
+        scribe_number: scannerNumber,
+        loginTime:firstLoginTime,
+        date: date,
+      });
+    }
+    res.status(201).json(
+      { message: 'Log created'}
+  );
+  }
+  catch(error){
+    const e = new AppError("Error creating a new log: "+error.message, 400);
+    e.sendResponse(res)
+  }
+
+} 
+  
+
+const handleLogoutAndIssue = async (req,res)=> {
+  try{
+    const currentDate = new Date().toLocaleDateString('en-US');
+  const {
+    userId,
+    logoutTime,
+    issues,
+  } = req.body;
+console.log(req.body);
+console.log(currentDate)
+const updatedLog =  await Logs.findOneAndUpdate(
+    { userId:userId
+      , date: currentDate },
+    { $set: { logoutTime:logoutTime, issues:issues } },
+    { new: true }
+  );
+  console.log(updatedLog); 
+  res.status(201).json(
+    { message: 'Log updated'}
+  );
+  }
+  catch(error){
+    const e = new AppError("Error storing the issue: "+error.message, 400);
+    e.sendResponse(res)
+  }
+  
+}
 
 
-  // Function to get overall count of books and pages scanned by the user
 const getOverallUserStatistics = async (req, res) => {
   const userId=req.params.id;
   
@@ -96,10 +158,13 @@ const getDailyUserStatistics = async (req, res) => {
       });
     }
   };
+
+
   
 
 module.exports = {
-
+  handleLogin,
+  handleLogoutAndIssue,
   getOverallUserStatistics,
   getDailyUserStatistics,
   viewBooks

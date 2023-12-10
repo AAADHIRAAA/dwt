@@ -1,8 +1,10 @@
 "use client"
 import React,{useEffect, useState} from "react";
+import axios from 'axios';
 import Link from "next/link";
-import {UserButton, useUser} from '@clerk/nextjs';
+import {UserButton,SignInButton,RedirectToSignIn, useUser} from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
+import ScribeSelection from "./scribeselection";
 
 const Header = () => {
 
@@ -21,27 +23,59 @@ const Header = () => {
    
     }
  };
-
-
-
- useEffect(() => {
-    getScribeNumber();
-    if(user){
-      const userRole = user.publicMetadata.userRole;
-      setIsAdmin(userRole === 'admin');
-      const storedFirstLoginTimes = JSON.parse(localStorage.getItem('firstLoginTimes')) || {};
-      const currentDate= new Date().toLocaleDateString();
-      if (!storedFirstLoginTimes[user.id] || storedFirstLoginTimes[user.id].date !== currentDate) {
-        const currentTime = new Date().toLocaleString();
-        storedFirstLoginTimes[user.id] = { date: currentDate, time: currentTime };
-        localStorage.setItem('firstLoginTimes', JSON.stringify(storedFirstLoginTimes));
-        setLoginTime(currentTime);
-      } else {
-        setLoginTime(storedFirstLoginTimes[user.id].time);
-      }
-    }
+ const getTimeString = (date) => {
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+};
+ const storeFirstLoginTime = async () => {
+  try {
+    console.log("login");
+    const storedFirstLoginTimes = JSON.parse(localStorage.getItem('firstLoginTimes')) || {};
+    const currentDate = new Date().toLocaleDateString('en-US');
+    const currentTime = new Date();
     
- }, [user]);
+    if (!storedFirstLoginTimes[user.id] || storedFirstLoginTimes[user.id].date !== currentDate) {
+      const timeString = getTimeString(currentTime);
+      storedFirstLoginTimes[user.id] = { date: currentDate, time: timeString };
+      localStorage.setItem('firstLoginTimes', JSON.stringify(storedFirstLoginTimes));
+      console.log("login1");
+      // Make a POST request to the backend API to store first login time
+      await axios.post('http://localhost:5200/api/v1/users/login', {
+        userId: user.id,
+        userName: user.fullName,
+        scannerNumber: selectedScribe,
+        firstLoginTime: storedFirstLoginTimes[user.id].time,
+        date: currentDate
+      });
+      if (!loginTime) {
+        setLoginTime(getTimeString(new Date()));
+        console.log("loggedin");
+      }
+    
+    }
+    if (!loginTime) {
+      setLoginTime(storedFirstLoginTimes[user.id].time);
+      console.log("loggedin");
+    }
+  } catch (error) {
+    console.error('Error storing first login time:', error);
+
+  }
+};
+
+useEffect(() => {
+  getScribeNumber();
+  if (user) { 
+    const userRole = user.publicMetadata.userRole;
+    setIsAdmin(userRole === 'admin');
+   
+  }
+  if(selectedScribe){
+    storeFirstLoginTime();
+  }
+}, [user,selectedScribe]);
 
 
   return (
@@ -82,6 +116,9 @@ const Header = () => {
                  Login
                 </h2>
               </Link>
+              {/* <button className={"bg-sky-800 text-white p-3 rounded-2xl"}>
+                <SignInButton />
+                </button> */}
               <div className="mr-2">
                 <UserButton afterSignOutUrl="/"/>
               </div>

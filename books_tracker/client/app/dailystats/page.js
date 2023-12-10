@@ -34,6 +34,10 @@ const SpreadsheetMonth = () => {
       accessor: (row, index) => index + 1, // Automatically generate serial number
     },
     {
+        Header: 'Date',
+        accessor: 'date',
+      },
+    {
         Header: 'User Name',
         accessor: 'userName',
       },
@@ -42,41 +46,34 @@ const SpreadsheetMonth = () => {
         accessor: 'scribe_number',
       },
      {
-       Header: 'Book Name',
-       accessor: 'title',
+       Header: 'Book Scanned',
+       accessor: 'books_scanned',
      },
-     {
-        Header: 'Scanned at',
-        accessor: 'scanned_at',
-      },
+   
      {
        Header: 'Pages Scanned',
        accessor: 'pages_scanned',
      },
      {
-      Header: 'Archieve Identifier',
-      accessor: 'ID_url',
+      Header: 'LoginTime',
+      accessor: 'login',
     },
     {
-      Header: 'Author Name',
-      accessor: 'author_name',
+      Header: 'LogoutTime',
+      accessor: 'logout',
     },
     {
-      Header: 'Publisher Name',
-      accessor: 'publisher_name',
+      Header: 'Target Achieved',
+      accessor: 'target',
     },
     {
-      Header: 'Year',
-      accessor: 'year',
+      Header: 'Issues',
+      accessor: 'issue',
     },
     {
-      Header: 'ISBN',
-      accessor: 'isbn',
+      Header: 'Working Hours',
+      accessor: 'hrs',
     },
-    {
-      Header:'Language',
-      accessor:'language',
-    }
      
   ],
   []
@@ -148,7 +145,7 @@ const SpreadsheetMonth = () => {
     <Header/>
     <div style={{marginTop:'50px'}}>
     
-        <h1  className='custom-heading' >Digitized Books Stats</h1>
+        <h1  className='custom-heading' >Daily Stats</h1>
       <div className=" overflow-x-auto">
       <table {...getTableProps()} className=" divide-y divide-gray-200" style={{ maxWidth: '80%' }}>
         <thead>

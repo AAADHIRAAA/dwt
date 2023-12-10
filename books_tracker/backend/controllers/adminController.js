@@ -1,5 +1,5 @@
 const Book = require('../models/bookModel');
-
+const Logs = require('../models/logModel'); 
 
 const getStatisticsForCurrentMonth = async (req, res) => {
     try {
@@ -73,7 +73,7 @@ const getStatisticsForCurrentMonth = async (req, res) => {
         {
           $group: {
             _id: {
-              scribeNumber: '$scribe_number',
+           
               username: "$userName",
             },
             totalBooks: { $sum: 1 },
@@ -84,7 +84,7 @@ const getStatisticsForCurrentMonth = async (req, res) => {
         {
           $project: {
             username: '$username',
-            scribeNumber: '$_id.scribeNumber',
+         
             totalBooks: '$totalBooks',
             totalPages: '$totalPages',
             _id: 0,
@@ -137,10 +137,97 @@ const getStatisticsForCurrentMonth = async (req, res) => {
       });
     }
   };
-  
+
+
+const getDailyStatistics = async (req, res) => {
+  try {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+
+    const startDate = new Date(currentYear, currentMonth - 1, 1);
+    const endDate = new Date(currentYear, currentMonth, 0);
+    console.log(startDate.toLocaleDateString('en-US'));
+    const logsData = await Logs.aggregate([
+      {
+        $match: {
+          date: {
+            $gte: startDate.toLocaleDateString('en-US'),
+            $lte: endDate.toLocaleDateString('en-US')
+          }
+        }
+      },
+      {
+        $group: {
+          _id: {
+            userId: '$userId',
+            date: `$date`,
+          },
+          loginTime: { $first: '$loginTime' },
+          logoutTime: { $last: '$logoutTime' },
+          issue: { $push: '$issue' },
+          scribeNumber: { $first: '$scribe_number' },
+          username: { $first: '$userName' }
+        }
+      }
+    ]);
+    console.log(logsData);
+
+    const booksData = await Book.aggregate([
+      {
+        $match: {
+          userId: `$userId`,
+          scanned_at: {
+            $gte: startDate,
+            $lte: endDate
+          }
+        }
+      },
+      {
+        $group: {
+          _id: '$userId',
+          totalBooksScanned: { $sum: 1 },
+          totalPagesScanned: { $sum: '$pages_scanned' }
+        }
+      }
+    ]);
+
+    console.log(booksData);
+    const mergedData = logsData.map((log) => {
+      const bookData = booksData.find((book) => book.userId === log._id.userId);
+      return {
+        userId: log._id.userId,
+        date: log._id.date,
+        loginTime: log.loginTime,
+        logoutTime: log.logoutTime,
+        issue: log.issue,
+        scribeNumber: log.scribeNumber,
+        username: log.username,
+        booksScanned: bookData ? bookData.totalBooksScanned : 0,
+        pagesScanned: bookData ? bookData.totalPagesScanned : 0,
+        targetAchieved: bookData ? bookData.totalPagesScanned > 6000 : false,
+        workingHours:{
+          $divide: [
+            { $subtract: ['$logoutTime', '$loginTime'] },
+            3600000 
+          ]
+        }
+
+      };
+    });
+    return res.status(200).json(mergedData);
+
+  } catch (error) {
+    throw new Error(`Error fetching current month statistics: ${error.message}`);
+  }
+};
+
+
+
 
   module.exports = {
   
+    getDailyStatistics,  
     getStatisticsForCurrentMonth,
     getLeaderboardForCurrentMonth,
     viewBooksForCurrentMonth,
