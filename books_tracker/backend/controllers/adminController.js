@@ -1,6 +1,26 @@
 const Book = require('../models/bookModel');
-const Logs = require('../models/logModel'); 
+const Logs = require('../models/logModel');
+const moment = require('moment');
 
+function hourDifference(timeString1, timeString2) {
+  // Check if either time string is null
+  if (!timeString1 || !timeString2) {
+    return null;
+  }
+
+  // Parse the time strings using moment with the specified format
+  const timeFormat = 'HH:mm:ss';
+  const time1 = moment(timeString1, timeFormat);
+  const time2 = moment(timeString2, timeFormat);
+
+  // Check if either time string is invalid
+  if (!time1.isValid() || !time2.isValid()) {
+    return null;
+  }
+
+  // Calculate the difference in hours
+  return Math.abs(time1.diff(time2, 'hours', true)).toFixed(1);
+}
 const getStatisticsForCurrentMonth = async (req, res) => {
     try {
       const currentDate = new Date();
@@ -143,11 +163,11 @@ const getDailyStatistics = async (req, res) => {
   try {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1;
+    const currentMonth = currentDate.getMonth();
 
-    const startDate = new Date(currentYear, currentMonth - 1, 1);
-    const endDate = new Date(currentYear, currentMonth, 0);
-    console.log(startDate.toLocaleDateString('en-US'));
+    const startDate = new Date(currentYear, currentMonth - 2, 1);
+    const endDate = currentDate
+    // console.log(endDate.toLocaleDateString('en-US'));
     const logsData = await Logs.aggregate([
       {
         $match: {
@@ -163,20 +183,19 @@ const getDailyStatistics = async (req, res) => {
             userId: '$userId',
             date: `$date`,
           },
-          loginTime: { $first: '$loginTime' },
-          logoutTime: { $last: '$logoutTime' },
-          issue: { $push: '$issue' },
-          scribeNumber: { $first: '$scribe_number' },
-          username: { $first: '$userName' }
+          loginTime: {$first: '$loginTime'},
+          logoutTime: {$last: '$logoutTime'},
+          issue: {$push: '$issues'},
+          scribeNumber: {$first: '$scribe_number'},
+          username: {$first: '$userName'}
         }
       }
     ]);
-    console.log(logsData);
+    // console.log(logsData);
 
     const booksData = await Book.aggregate([
       {
         $match: {
-          userId: `$userId`,
           scanned_at: {
             $gte: startDate,
             $lte: endDate
@@ -191,39 +210,31 @@ const getDailyStatistics = async (req, res) => {
         }
       }
     ]);
-
-    console.log(booksData);
+    // console.log(booksData)
     const mergedData = logsData.map((log) => {
-      const bookData = booksData.find((book) => book.userId === log._id.userId);
+      const bookData = booksData.find((book) => book._id === log._id.userId);
       return {
         userId: log._id.userId,
         date: log._id.date,
         loginTime: log.loginTime,
-        logoutTime: log.logoutTime,
-        issue: log.issue,
+        logoutTime: log.logoutTime ? log.logoutTime : "Yet To Logout",
+        issue: log.issue ? log.issue : "Nil",
         scribeNumber: log.scribeNumber,
         username: log.username,
         booksScanned: bookData ? bookData.totalBooksScanned : 0,
         pagesScanned: bookData ? bookData.totalPagesScanned : 0,
-        targetAchieved: bookData ? bookData.totalPagesScanned > 6000 : false,
-        workingHours:{
-          $divide: [
-            { $subtract: ['$logoutTime', '$loginTime'] },
-            3600000 
-          ]
-        }
+        targetAchieved: bookData ? bookData.totalPagesScanned > 6000 ? "Yes" : "No" : "No",
+        workingHours: hourDifference(log.loginTime, log.logoutTime) ? hourDifference(log.loginTime, log.logoutTime) : "Yet To Logout",
 
       };
     });
+    // console.log(mergedData)
     return res.status(200).json(mergedData);
 
   } catch (error) {
     throw new Error(`Error fetching current month statistics: ${error.message}`);
   }
 };
-
-
-
 
   module.exports = {
   

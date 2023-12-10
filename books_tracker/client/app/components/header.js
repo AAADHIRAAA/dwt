@@ -1,10 +1,9 @@
 "use client"
-import React,{useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import Link from "next/link";
-import {UserButton,SignInButton,RedirectToSignIn, useUser} from '@clerk/nextjs';
-import { useRouter } from 'next/navigation';
-import ScribeSelection from "./scribeselection";
+import {SignInButton, UserButton, useUser} from '@clerk/nextjs';
+import {useRouter} from 'next/navigation';
 
 const Header = () => {
 
@@ -31,24 +30,24 @@ const Header = () => {
 };
  const storeFirstLoginTime = async () => {
   try {
-    console.log("login");
+
     const storedFirstLoginTimes = JSON.parse(localStorage.getItem('firstLoginTimes')) || {};
     const currentDate = new Date().toLocaleDateString('en-US');
     const currentTime = new Date();
-    
+    await axios.post('http://localhost:5200/api/v1/users/login', {
+      userId: user.id,
+      userName: user.fullName,
+      scannerNumber: selectedScribe,
+      firstLoginTime: storedFirstLoginTimes[user.id].time,
+      date: currentDate
+    });
     if (!storedFirstLoginTimes[user.id] || storedFirstLoginTimes[user.id].date !== currentDate) {
       const timeString = getTimeString(currentTime);
-      storedFirstLoginTimes[user.id] = { date: currentDate, time: timeString };
+      storedFirstLoginTimes[user.id] = {date: currentDate, time: timeString};
       localStorage.setItem('firstLoginTimes', JSON.stringify(storedFirstLoginTimes));
       console.log("login1");
       // Make a POST request to the backend API to store first login time
-      await axios.post('http://localhost:5200/api/v1/users/login', {
-        userId: user.id,
-        userName: user.fullName,
-        scannerNumber: selectedScribe,
-        firstLoginTime: storedFirstLoginTimes[user.id].time,
-        date: currentDate
-      });
+
       if (!loginTime) {
         setLoginTime(getTimeString(new Date()));
         console.log("loggedin");
@@ -110,19 +109,19 @@ useEffect(() => {
         <nav className="flex items-center justify-between sm:justify-start w-full sm:w-auto">
           <>
           {!user && (
-            <>
-              <Link href="/machine" className="mr-4">
-                <h2 className="mb-3 text-sky-800 text-lg">
-                 Login
-                </h2>
-              </Link>
-              {/* <button className={"bg-sky-800 text-white p-3 rounded-2xl"}>
-                <SignInButton />
-                </button> */}
-              <div className="mr-2">
-                <UserButton afterSignOutUrl="/"/>
-              </div>
-            </>
+              <>
+                {/*<Link href="/machine" className="mr-4">*/}
+                {/*  <h2 className="mb-3 text-sky-800 text-lg">*/}
+                {/*   Login*/}
+                {/*  </h2>*/}
+                {/*</Link>*/}
+                <button className={"bg-sky-800 text-white p-3 rounded-2xl"}>
+                  <SignInButton/>
+                </button>
+                <div className="mr-2">
+                  <UserButton afterSignOutUrl="/"/>
+                </div>
+              </>
           )}
          
        

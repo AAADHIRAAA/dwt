@@ -1,10 +1,9 @@
 "use client"
-import React, { useState, useEffect,useMemo } from 'react';
-import { useTable,useSortBy, usePagination} from 'react-table';
-import { useUser} from '@clerk/nextjs';
+import React, {useEffect, useMemo, useState} from 'react';
+import {usePagination, useSortBy, useTable} from 'react-table';
+import {useUser} from '@clerk/nextjs';
 import Header from "../components/Header";
 import Link from 'next/link';
-import Image from 'next/image';
 
 const SpreadsheetMonth = () => {
  const [rowData, setRowData] = useState([]);
@@ -39,41 +38,41 @@ const SpreadsheetMonth = () => {
       },
     {
         Header: 'User Name',
-        accessor: 'userName',
+        accessor: 'username',
+    },
+      {
+          Header: 'Scanner Number',
+          accessor: 'scribeNumber',
       },
       {
-        Header: 'Scanner Number',
-        accessor: 'scribe_number',
+          Header: 'Book Scanned',
+          accessor: 'booksScanned',
       },
-     {
-       Header: 'Book Scanned',
-       accessor: 'books_scanned',
-     },
-   
-     {
-       Header: 'Pages Scanned',
-       accessor: 'pages_scanned',
-     },
-     {
-      Header: 'LoginTime',
-      accessor: 'login',
-    },
-    {
-      Header: 'LogoutTime',
-      accessor: 'logout',
-    },
-    {
-      Header: 'Target Achieved',
-      accessor: 'target',
-    },
+
+      {
+          Header: 'Pages Scanned',
+          accessor: 'pagesScanned',
+      },
+      {
+          Header: 'LoginTime',
+          accessor: 'loginTime',
+      },
+      {
+          Header: 'LogoutTime',
+          accessor: 'logoutTime',
+      },
+      {
+          Header: 'Target Achieved',
+          accessor: 'targetAchieved',
+      },
     {
       Header: 'Issues',
       accessor: 'issue',
     },
-    {
-      Header: 'Working Hours',
-      accessor: 'hrs',
-    },
+      {
+          Header: 'Working Hours',
+          accessor: 'workingHours',
+      },
      
   ],
   []
@@ -83,8 +82,8 @@ const SpreadsheetMonth = () => {
   
     try {
       setIsLoadingStats(true);
-      
-      const response = await fetch('http://localhost:5200/api/v1/admin/viewbooks-month');
+
+        const response = await fetch('http://localhost:5200/api/v1/admin/viewdailystats');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
